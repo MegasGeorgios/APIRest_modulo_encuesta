@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Pregunta;
 use App\Opciones;
 
@@ -27,14 +28,24 @@ class PreguntaOpcionesController extends Controller
 
     public function store(Request $request, $id_pregunta)
     {
-      $tam=sizeof($request);
-      dd($tam);
+      $tam=sizeof($request->opciones);
+      //dd($tam);
       $pregunta= Pregunta::find($id_pregunta);
       if(!$pregunta){
         return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
       }
 
-      $opciones= $pregunta->opciones()->create($request->all());
+      //if (isset($request->frase)) {
+
+      //}
+        $opcion = new opciones;
+        $opciones = $request->opciones;
+        for ($i=0; $i < $tam; $i++) {
+          DB::table('opciones')->insert(
+            ['opcion' => $opciones[$i], 'pregunta_id' => $id_pregunta]
+          );
+        }
+
 
       return response()->json(['mensaje'=>'Se han almacenado satisfactoriamente', 'code'=>202],202);
 

@@ -10,7 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/encuesta', function () {
+    return view('encuesta');
+});
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/editar-encuesta', function () {
+    return view('editar-encuesta');
+});
+
+Route::get('/opciones-pregunta', function () {
+    return view('opciones-pregunta');
+});
+
+Route::get('/pregunta', function () {
+    return view('pregunta');
 });

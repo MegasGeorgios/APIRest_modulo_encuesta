@@ -28,7 +28,7 @@ class EncuestaPreguntaController extends Controller
 
     public function store(Request $request, $id_encuesta)
     {
-
+    
       if (!$request->get('pregunta') || !$request->get('aclaratoria') || !$request->get('tipo_respuesta'))
       {
           return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);
@@ -36,7 +36,7 @@ class EncuestaPreguntaController extends Controller
 
       $encuesta= Encuesta::find($id_encuesta);
       if(!$encuesta){
-        return response()->json(['mensaje'=>'No se encontraro la encuesta', 'code'=>404],404);
+        return response()->json(['mensaje'=>'No se encontro la encuesta', 'code'=>404],404);
       }
 
       $pregunta= $encuesta->preguntas()->create($request->all());
