@@ -14,6 +14,10 @@ Route::get('/encuesta', function () {
     return view('encuesta');
 });
 
+Route::get('/encuestas', function () {
+    return view('encuestas');
+});
+
 Route::get('/editar-encuesta', function () {
     return view('editar-encuesta');
 });
