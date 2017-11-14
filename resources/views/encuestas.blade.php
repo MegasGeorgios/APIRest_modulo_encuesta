@@ -3,15 +3,33 @@
     <div class="row">
 				<div class="col-md-8 col-md-offset-2" id="vue">
             <div class="panel panel-default">
-                <div class="panel-heading">@{{title}}</div>
+              <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Titulo</th>
+                          <th scope="col">Fecha inicio</th>
+                          <th scope="col">Fecha fin</th>
+                          <th scope="col">Ambito</th>
+                          <th scope="col">Opcion</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="encuesta in encuestas">
+                          <th scope="row">@{{ encuesta.id }}</th>
+                          <td>@{{ encuesta.titulo }}</td>
+                          <td>@{{ encuesta.fecha_inicio }}</td>
+                          <td>@{{ encuesta.fecha_fin }}</td>
+                          <td>tipo usuario</td>
+                          <td>
+                            <a href=""><i class="fa fa-eye"></i></a>-
+                            <a href=""><i class="fa fa-bar-chart"></i></a>-
+                            <a href=""><i class="fa fa-trash-o"></i></a>
+                          </td>
 
-                <div class="panel-body">
-										<ul>
-											<li v-for="encuesta in encuestas">
-												@{{ encuesta.titulo }}
-											</li>
-										</ul>
-                </div>
+                        </tr>
+                      </tbody>
+                    </table>
             </div>
         </div>
     </div>

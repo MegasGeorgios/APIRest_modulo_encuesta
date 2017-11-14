@@ -21,14 +21,14 @@ class EncuestaPreguntaController extends Controller
          }
 
          $preguntas= $encuesta->preguntas;
-          return response()->json(['datos'=>$preguntas],202);
+          return response()->json(['datos'=>$encuesta],202);
 
      }
 
 
     public function store(Request $request, $id_encuesta)
     {
-    
+
       if (!$request->get('pregunta') || !$request->get('aclaratoria') || !$request->get('tipo_respuesta'))
       {
           return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);
