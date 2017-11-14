@@ -9,33 +9,33 @@
                     <a class="pull-right" href="{{url('api/encuesta/1/preguntas')}}">Editar preguntas</a>
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body"  id="vue">
 
                 {!!  Form::open(['url' => 'api/encuestas/1', 'method' => 'POST']) !!}
                 {{ method_field('PUT') }}
                       <div class="form-group">
                         {!! Form::label('titulo', 'Titulo') !!}
-                        {!! Form::text('titulo', null, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::text('titulo', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.titulo']) !!}
                       </div>
 
                       <div class="form-group">
                         {!! Form::label('descripcion', 'Descripcion') !!}
-                        {{ Form::textarea('descripcion', null, ['class' => 'form-control', 'required']) }}
+                        {{ Form::textarea('descripcion', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.descripcion']) }}
                       </div>
 
                       <div class="form-group">
                         {!! Form::label('ambito', 'Ambito') !!}
-                        {!! Form::select('ambito', ['1' => 'tipo usuario 1', '2' => 'tipo usuario 2', '3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::select('ambito', ['1' => 'tipo usuario 1', '2' => 'tipo usuario 2', '3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.ambito']) !!}
                       </div>
 
                       <div class="form-group">
                         {!! Form::label('fecha_inicio', 'Fecha Inicio') !!}
-                        {!! Form::date('fecha_inicio', null,  ['class' => 'form-control', 'required']) !!}
+                        {!! Form::date('fecha_inicio', null,  ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.fecha_inicio']) !!}
                       </div>
 
                       <div class="form-group">
                         {!! Form::label('fecha_fin', 'Fecha Fin') !!}
-                        {!! Form::date('fecha_fin', null,  ['class' => 'form-control']) !!}
+                        {!! Form::date('fecha_fin', null,  ['class' => 'form-control', 'v-bind:value' => 'encuesta.fecha_fin']) !!}
                       </div>
 
                       {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
@@ -52,17 +52,20 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="encuesta in encuestas">
-                              <td>@{{ encuesta.Pregunta }}</td>
-                              <td>@{{ encuesta.aclaratoria }}</td>
-                              <td>@{{ encuesta.tipo_respuesta }}</td>
+                          
+                            <tr v-for="pregunta in encuesta.preguntas">
+                              <td>@{{ pregunta.id }}</td>
+                              <td>@{{ pregunta.pregunta }}</td>
+                              <td>@{{ pregunta.aclaratoria }}</td>
+                              <td>@{{ pregunta.tipo_respuesta }}</td>
                               <td>tipo usuario</td>
                               <td>
-                                <a :href="'"><i ></i>editar</a>-
-                                <a :href=""><i class="fa fa-trash-o"></i></a>
+                                <a :href="`/pregunta/${pregunta.id}`"><i ></i>editar</a>-
+                                <a :href="`/encuesta/${encuesta.id}/preguntas/${pregunta.id}`"><i class="fa fa-trash-o"></i></a>
                               </td>
 
                             </tr>
+                            
                           </tbody>
                         </table>
                 </div>
@@ -78,13 +81,14 @@
   el: '#vue',
   data: {
     title: 'Encuestas',
-		encuestas: [],
+    encuesta: {},
 		errors: []
   },
 	created: function() {
-    axios.get(`/api/encuesta/'+encuesta.id`)
+    var idEncuesta = JSON.parse(<?php echo json_encode($idEncuesta); ?>);
+    axios.get(`/api/encuesta/${idEncuesta}/preguntas`)
     .then(response => {
-      this.encuestas = response.data.datos;
+      this.encuesta = response.data.datos;
     })
     .catch(e => {
       this.errors.push(e);
