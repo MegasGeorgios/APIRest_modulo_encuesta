@@ -22,7 +22,7 @@
                           <td>@{{ encuesta.fecha_fin }}</td>
                           <td>tipo usuario</td>
                           <td>
-                            <a href=""><i class="fa fa-eye"></i></a>-
+                            <a :href="'encuesta/'+encuesta.id+'/preguntas'"><i class="fa fa-eye"></i></a>-
                             <a href=""><i class="fa fa-bar-chart"></i></a>-
                             <a href=""><i class="fa fa-trash-o"></i></a>
                           </td>

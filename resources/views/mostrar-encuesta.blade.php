@@ -46,26 +46,4 @@
         </div>
     </div>
 </div>
-
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
-	var app = new Vue({
-  el: '#vue',
-  data: {
-    title: 'Encuestas',
-		encuestas: [],
-		errors: []
-  },
-	created: function() {
-    axios.get(`/api/encuesta/'+encuesta.id`)
-    .then(response => {
-      this.encuestas = response.data.datos;
-    })
-    .catch(e => {
-      this.errors.push(e);
-    });
-  }
-})
-</script>
 @endsection
