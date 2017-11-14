@@ -41,6 +41,30 @@
                       {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
 
                   {!! Form::close() !!}
+
+                  <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Pregunta</th>
+                              <th scope="col">aclaratoria</th>
+                              <th scope="col">Tipo respuesta</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="encuesta in encuestas">
+                              <td>@{{ encuesta.Pregunta }}</td>
+                              <td>@{{ encuesta.aclaratoria }}</td>
+                              <td>@{{ encuesta.tipo_respuesta }}</td>
+                              <td>tipo usuario</td>
+                              <td>
+                                <a :href="'"><i ></i>editar</a>-
+                                <a :href=""><i class="fa fa-trash-o"></i></a>
+                              </td>
+
+                            </tr>
+                          </tbody>
+                        </table>
                 </div>
             </div>
         </div>

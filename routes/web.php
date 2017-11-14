@@ -23,8 +23,12 @@ Route::get('/encuesta', function () {
     return view('encuesta');
 });
 
-Route::get('/encuesta/{id}/preguntas', function () {
+Route::get('/encuesta/{id}', function () {
     return view('editar-encuesta');
+});
+
+Route::get('/encuesta/{id}/preguntas', function () {
+    return view('editar-pregunta');
 });
 
 Route::get('/opciones-pregunta', function () {
