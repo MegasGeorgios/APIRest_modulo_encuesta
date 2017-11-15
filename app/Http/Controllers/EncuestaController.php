@@ -96,6 +96,14 @@ class EncuestaController extends Controller
      */
     public function destroy($id)
     {
-        Encuesta::find($id)->delete();
+        $encuesta = Encuesta::find($id);
+
+        if(!$encuesta){
+          return response()->json(['mensaje'=>'No se encontro la $encuesta', 'code'=>404],404);
+        }
+
+        $encuesta->delete();
+        return response()->json(['mensaje'=>'Se ha eliminado la $encuesta correctamente', 'code'=>202],202);
+
     }
 }

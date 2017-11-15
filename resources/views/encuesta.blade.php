@@ -22,7 +22,7 @@
 
                       <div class="form-group">
                         {!! Form::label('ambito', 'Ambito') !!}
-                        {!! Form::select('ambito', ['1' => 'tipo usuario 1', '2' => 'tipo usuario 2', '3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::select('ambito', ['user1' => 'tipo usuario 1', 'user2' => 'tipo usuario 2', 'user3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required']) !!}
                       </div>
 
                       <div class="form-group">

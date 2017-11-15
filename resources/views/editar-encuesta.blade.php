@@ -5,13 +5,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Editar encuesta
-                    <a class="pull-right" href="{{url('api/encuesta/1/preguntas')}}">Editar preguntas</a>
-                </div>
+                <div class="panel-heading">Editar encuesta  </div>
 
                 <div class="panel-body"  id="vue">
 
-                {!!  Form::open(['url' => 'api/encuestas/1', 'method' => 'POST']) !!}
+                <form method="post" action="/api/encuestas/{{$idEncuesta}}">
                 {{ method_field('PUT') }}
                       <div class="form-group">
                         {!! Form::label('titulo', 'Titulo') !!}
@@ -25,7 +23,7 @@
 
                       <div class="form-group">
                         {!! Form::label('ambito', 'Ambito') !!}
-                        {!! Form::select('ambito', ['1' => 'tipo usuario 1', '2' => 'tipo usuario 2', '3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.ambito']) !!}
+                        {!! Form::select('ambito', ['user1' => 'tipo usuario 1', 'user2' => 'tipo usuario 2', 'user3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.ambito']) !!}
                       </div>
 
                       <div class="form-group">
@@ -40,34 +38,34 @@
 
                       {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
 
-                  {!! Form::close() !!}
+                </form>
 
                   <table class="table table-striped">
                           <thead>
                             <tr>
                               <th scope="col">#</th>
                               <th scope="col">Pregunta</th>
-                              <th scope="col">aclaratoria</th>
+                              <th scope="col">Aclaratoria</th>
                               <th scope="col">Tipo respuesta</th>
                             </tr>
                           </thead>
                           <tbody>
-                          
+
                             <tr v-for="pregunta in encuesta.preguntas">
                               <td>@{{ pregunta.id }}</td>
                               <td>@{{ pregunta.pregunta }}</td>
                               <td>@{{ pregunta.aclaratoria }}</td>
                               <td>@{{ pregunta.tipo_respuesta }}</td>
-                              <td>tipo usuario</td>
                               <td>
-                                <a :href="`/pregunta/${pregunta.id}`"><i ></i>editar</a>-
-                                <a :href="`/encuesta/${encuesta.id}/preguntas/${pregunta.id}`"><i class="fa fa-trash-o"></i></a>
+                                <a :href="`/pregunta/${pregunta.id}`"><i class="fa fa-edit"></i></a>-
+                                <a :href="`/eliminar-pregunta/${pregunta.id}`"><i class="fa fa-trash-o"></i></a>
                               </td>
 
                             </tr>
-                            
+
                           </tbody>
                         </table>
+                        <a :href="'/encuesta/'+encuesta.id+'/agregar-pregunta'" class="btn btn-primary pull-right">Agregar pregunta</a>
                 </div>
             </div>
         </div>

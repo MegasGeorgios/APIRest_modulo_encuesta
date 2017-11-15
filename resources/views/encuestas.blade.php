@@ -20,16 +20,19 @@
                           <td>@{{ encuesta.titulo }}</td>
                           <td>@{{ encuesta.fecha_inicio }}</td>
                           <td>@{{ encuesta.fecha_fin }}</td>
-                          <td>tipo usuario</td>
+                          <td>@{{ encuesta.ambito }}</td>
                           <td>
-                            <a :href="'encuesta/'+encuesta.id+'/preguntas'"><i class="fa fa-eye"></i></a>-
+
+                            <a :href="'encuesta/'+encuesta.id"><i class="fa fa-eye"></i></a>-
                             <a href=""><i class="fa fa-bar-chart"></i></a>-
-                            <a href=""><i class="fa fa-trash-o"></i></a>
+                            <a :href="'encuesta/'+encuesta.id+'/preguntas'"><i class="fa fa-edit"></i></a>-
+                            <a :href="'eliminar-encuesta/'+encuesta.id"><i class="fa fa-trash-o"></i></a>
                           </td>
 
                         </tr>
                       </tbody>
                     </table>
+                    <a href="{{url('/encuesta')}}" class="btn btn-primary pull-right">Crear encuesta</a>
             </div>
         </div>
     </div>
