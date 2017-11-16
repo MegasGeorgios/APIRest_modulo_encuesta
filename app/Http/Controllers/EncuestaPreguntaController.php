@@ -21,7 +21,8 @@ class EncuestaPreguntaController extends Controller
          }
 
          $preguntas= $encuesta->preguntas;
-          return response()->json([ 'datos'=>$encuesta ],202);
+
+        return response()->json([ 'datos'=>$encuesta ],202);
 
      }
 

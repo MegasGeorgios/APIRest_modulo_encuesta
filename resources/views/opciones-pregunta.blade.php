@@ -9,7 +9,7 @@
 
                 <div class="panel-body">
 
-                  {!!  Form::open(['url' => 'api/pregunta/1/opciones', 'method' => 'post']) !!}
+                  <form method="POST" action="/api/pregunta/{{$idPregunta}}/opciones">
 
                   <div id="div_3" class="form-group contenido-oculto">
                     <label for="opcion"> Opciones</label><a href="javascript:void(0);" class="add_button pull-right" title="Add field">agregar</a>

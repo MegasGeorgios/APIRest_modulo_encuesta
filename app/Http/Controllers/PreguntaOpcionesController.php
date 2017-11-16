@@ -16,13 +16,17 @@ class PreguntaOpcionesController extends Controller
      */
     public function index($id)
     {
-      $pregunta= Pregunta::find($id);
+      $pregunta=Pregunta::find($id);
       if(!$pregunta){
         return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
       }
 
-      $opciones= $pregunta->opciones;
-       return response()->json(['datos'=>$opciones],202);
+        $preguntasOp = DB::table('preguntas')
+        ->join('opciones', 'preguntas.id', '=', 'opciones.pregunta_id')
+        ->select('preguntas.*', 'opciones.*')
+        ->where('pregunta_id',$id)->get();
+
+       return response()->json(['datos'=>$preguntasOp],202);
     }
 
 

@@ -45,8 +45,7 @@
                             <tr>
                               <th scope="col">#</th>
                               <th scope="col">Pregunta</th>
-                              <th scope="col">Aclaratoria</th>
-                              <th scope="col">Tipo respuesta</th>
+                              <th scope="col">Respuesta</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -54,11 +53,19 @@
                             <tr v-for="pregunta in encuesta.preguntas">
                               <td>@{{ pregunta.id }}</td>
                               <td>@{{ pregunta.pregunta }}</td>
-                              <td>@{{ pregunta.aclaratoria }}</td>
-                              <td>@{{ pregunta.tipo_respuesta }}</td>
+                              <td v-if="pregunta.tipo_respuesta === 'opciones'">
+                                <a :href="`/opciones/`+pregunta.id"> @{{ pregunta.tipo_respuesta }}</a>
+                              </td>
+                              <td v-else>@{{ pregunta.tipo_respuesta }}</td>
                               <td>
-                                <a :href="`/pregunta/${pregunta.id}`"><i class="fa fa-edit"></i></a>-
-                                <a :href="`/eliminar-pregunta/${pregunta.id}`"><i class="fa fa-trash-o"></i></a>
+                                  <div v-if="pregunta.tipo_respuesta === 'opciones'">
+                                    <a :href="`/pregunta/${pregunta.id}/opciones`"><i class="fa fa-edit"></i></a>-
+                                    <a :href="`/eliminar-pregunta/${pregunta.id}`"><i class="fa fa-trash-o"></i></a>
+                                  </div>
+                                  <div v-else>
+                                    <a :href="`/pregunta/${pregunta.id}`"><i class="fa fa-edit"></i></a>-
+                                    <a :href="`/eliminar-pregunta/${pregunta.id}`"><i class="fa fa-trash-o"></i></a>
+                                  </div>
                               </td>
 
                             </tr>

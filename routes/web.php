@@ -44,13 +44,18 @@ Route::get('/encuesta/{id}/agregar-pregunta', function ($id) {
 });
 
 //agregar opciones
-Route::get('/opciones-pregunta', function () {
-    return view('opciones-pregunta');
+Route::get('/opciones/{id}', function ($id) {
+    return view('opciones-pregunta', ['idPregunta' => $id]);
 });
 
-//editar pregunta
+//editar pregunta sin opciones
 Route::get('/pregunta/{id}', function ($id) {
     return view('editar-pregunta', ['idPregunta' => $id]);
+});
+
+//editar pregunta con Opciones
+Route::get('/pregunta/{id}/opciones', function ($id) {
+    return view('editar-pregunta-opciones', ['idPregunta' => $id]);
 });
 
 //eliminar pregunta

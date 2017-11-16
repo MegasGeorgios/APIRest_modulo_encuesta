@@ -6,34 +6,48 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
               <div id="vue">
-                <div class="panel-heading"  > @{{ encuesta.titulo }}  </div>
 
                 <div class="panel-body"  >
+                  <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                      <h1 class="display-3">Titulo encuesta</h1>
+                      <p class="lead">Descripcion encuesta descripcion encuesta descripcion encuesta
+                        descripcion encuesta descripcion encuesta descripcion encuesta descripcion encuesta..</p>
+                    </div>
+                  </div>
 
-                <form method="post" action="">
 
-                    <p>@{{ encuesta.descripcion }}</p>
+                  <form >
+                    <p class="h3">Preguntaaaaaaaaaaaaa??????</p>
+                    <small class="text-muted">aclaratoria aclaratoria aclaratoria aclaratoria
+                      aclaratoria aclaratoria aclaratoria aclaratoria aclaratoria
+                    </small>
+                    <ul class="list-group">
+                      <li class="list-group-item"><input type="checkbox" > Dapibus ac facilisis in</li>
+                      <li class="list-group-item"><input type="checkbox" > Morbi leo risus</li>
+                      <li class="list-group-item"><input type="checkbox" > Porta ac consectetur ac</li>
+                      <li class="list-group-item"><input type="checkbox" > Vestibulum at eros</li>
+                    </ul>
 
-                    <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Pregunta</th>
-                                <th scope="col">Aclaratoria</th>
-                                <th scope="col">Tipo respuesta</th>
-                              </tr>
-                            </thead>
-                            <tbody>
+                    <p class="h3">Preguntaaaaaaaaaaaaa??????</p>
+                    <small class="text-muted">aclaratoria aclaratoria aclaratoria aclaratoria
+                      aclaratoria aclaratoria aclaratoria aclaratoria aclaratoria
+                    </small>
+                    <ul class="list-group">
+                      <li class="list-group-item"><font size="5px"> 1 </font>  <input type="checkbox" ></li>
+                      <li class="list-group-item"><font size="5px"> 2 </font>  <input type="checkbox" ></li>
+                      <li class="list-group-item"><font size="5px"> 3 </font>  <input type="checkbox" ></li>
+                      <li class="list-group-item"><font size="5px"> 4 </font>  <input type="checkbox" ></li>
+                      <li class="list-group-item"><font size="5px"> 5 </font>  <input type="checkbox" ></li>
+                    </ul>
 
-                              <tr v-for="pregunta in encuesta.preguntas">
-                                <td>@{{ pregunta.id }}</td>
-                                <td>@{{ pregunta.pregunta }}</td>
-                                <td>@{{ pregunta.aclaratoria }}</td>
-                                <td>@{{ pregunta.tipo_respuesta }}</td>
-                              </tr>
-
-                            </tbody>
-                          </table>
+                    <p class="h3">Preguntaaaaaaaaaaaaa??????</p>
+                    <small class="text-muted">aclaratoria aclaratoria aclaratoria aclaratoria
+                      aclaratoria aclaratoria aclaratoria aclaratoria aclaratoria
+                    </small>
+                    <div class="form-group">
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
 
                       {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
 
@@ -45,26 +59,4 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
-	var app = new Vue({
-  el: '#vue',
-  data: {
-    title: 'Encuestas',
-    encuesta: {},
-		errors: []
-  },
-	created: function() {
-    var idEncuesta = JSON.parse(<?php echo json_encode($idEncuesta); ?>);
-    axios.get(`/api/encuesta/${idEncuesta}/preguntas`)
-    .then(response => {
-      this.encuesta = response.data.datos;
-    })
-    .catch(e => {
-      this.errors.push(e);
-    });
-  }
-})
-</script>
 @endsection
