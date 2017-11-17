@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Encuesta;
+use App\Pregunta;
+use App\Opciones;
 
 class EncuestaController extends Controller
 {
@@ -12,6 +14,16 @@ class EncuestaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function rpd_encuesta($id)
+     {
+         $encuesta= Encuesta::where('id',$id)->with('preguntas.op')->get();
+         if(!$encuesta){
+           return response()->json(['mensaje'=>'No se encontro encuesta', 'code'=>404],404);
+         }
+
+        return response()->json([ 'datos'=>$encuesta ],202);
+
+     }
     public function index()
     {
         $encuestas= Encuesta::all();

@@ -15,7 +15,7 @@ class Pregunta extends Model
   public function encuesta()
   {
     // 1 pregunta pertenece a una encuesta
-    return $this->belongsTo('App\Encuesta');
+    return $this->belongsTo('App\Encuesta', 'encuesta_id');
   }
 
   public function op()

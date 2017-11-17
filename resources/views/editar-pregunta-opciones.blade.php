@@ -9,7 +9,7 @@
 
               <div class="panel-body"  id="vue">
 
-              <form method="POST" action="/api/pregunta/{{$idPregunta}}/opciones">
+              <form method="POST" action="/act-pregunta-opciones/{{$idPregunta}}">
               {!! method_field('PUT') !!}
 
               <div class="form-group">
@@ -29,7 +29,27 @@
                   <a :href="`/eliminar-opcion/${pregunta.id}`"><i class="fa fa-trash-o pull-right"></i></a>
               </div><br>
 
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
+
+              {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
+
+            {!! Form::close() !!}
+
+            <form method="POST" action="/api/pregunta/{{$idPregunta}}/opciones">
+              <br><br><br><br>
+
+              <label for="opcion"> Opciones</label>
+              <div class="field_wrapper form-group">
+                  <div>
+                    <input class="form-control" type="text" name="opciones[]" value=""/>
+                    <br>
+                  </div>
+              </div>
+
+              <br><br><a href="javascript:void(0);" class="add_button pull-left" title="Add field">Otra opcion</a>
+              {!! Form::submit('Agregar', ['class' => 'btn btn-primary pull-right']) !!}
+
+            {!! Form::close() !!}
+
             </form>
             </div>
             </div>
@@ -57,5 +77,28 @@
     });
   }
 })
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var fieldHTML = '<div><input class=" form-control " type="text" name="opciones[]" value=""/><a href="javascript:void(0);" class="remove_button pull-right" title="Remove field"><i class="fa fa-trash-o"></i></a></div>'; //New input field html
+        var x = 1; //Initial field counter is 1
+        $(addButton).click(function(){ //Once add button is clicked
+            if(x < maxField){ //Check maximum number of input fields
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); // Add field html
+            }
+        });
+        $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
 </script>
 @endsection

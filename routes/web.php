@@ -30,7 +30,8 @@ Route::get('/encuesta/{id}/preguntas', function ($id) {
     return view('editar-encuesta', ['idEncuesta' => $id]);
 });
 
-//ruta para editar encuesta
+//ruta para responder encuesta
+//Route::get('/rpd/{id}', 'EncuestaController@rpd_encuesta');
 Route::get('/encuesta/{id}', function ($id) {
     return view('responder-encuesta', ['idEncuesta' => $id]);
 });
@@ -43,11 +44,6 @@ Route::get('/encuesta/{id}/agregar-pregunta', function ($id) {
     return view('pregunta', ['idEncuesta' => $id]);
 });
 
-//agregar opciones
-Route::get('/opciones/{id}', function ($id) {
-    return view('opciones-pregunta', ['idPregunta' => $id]);
-});
-
 //editar pregunta sin opciones
 Route::get('/pregunta/{id}', function ($id) {
     return view('editar-pregunta', ['idPregunta' => $id]);
@@ -57,7 +53,7 @@ Route::get('/pregunta/{id}', function ($id) {
 Route::get('/pregunta/{id}/opciones', function ($id) {
     return view('editar-pregunta-opciones', ['idPregunta' => $id]);
 });
-Route::any('/api/pregunta/{id}/opciones', 'PreguntaOpcionesController@update');
+Route::any('/act-pregunta-opciones/{id}', 'PreguntaOpcionesController@update');
 
 //eliminar opcion
 Route::any('eliminar-opcion/{id}', ['as' => 'eliminar-opcion', 'uses' => 'PreguntaOpcionesController@destroy']);

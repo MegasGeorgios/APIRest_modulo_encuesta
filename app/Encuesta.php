@@ -15,7 +15,7 @@ class Encuesta extends Model
   public function preguntas()
 	{
 		// 1 encuesta tiene muchas preguntas
-		return $this->hasMany('App\Pregunta');
+		return $this->hasMany('App\Pregunta', 'encuesta_id', 'id');
 	}
 
 }

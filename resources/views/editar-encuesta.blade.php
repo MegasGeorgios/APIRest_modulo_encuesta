@@ -53,10 +53,7 @@
                             <tr v-for="pregunta in encuesta.preguntas">
                               <td>@{{ pregunta.id }}</td>
                               <td>@{{ pregunta.pregunta }}</td>
-                              <td v-if="pregunta.tipo_respuesta === 'opciones'">
-                                <a :href="`/opciones/`+pregunta.id"> @{{ pregunta.tipo_respuesta }}</a>
-                              </td>
-                              <td v-else>@{{ pregunta.tipo_respuesta }}</td>
+                              <td>@{{ pregunta.tipo_respuesta }}</td>
                               <td>
                                   <div v-if="pregunta.tipo_respuesta === 'opciones'">
                                     <a :href="`/pregunta/${pregunta.id}/opciones`"><i class="fa fa-edit"></i></a>-
