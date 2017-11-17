@@ -18,15 +18,9 @@ class Pregunta extends Model
     return $this->belongsTo('App\Encuesta');
   }
 
-  public function respuestas()
+  public function op()
 	{
 		// 1 pregunta tiene varias respuestas
-		return $this->hasMany('App\Respuesta');
-	}
-
-  public function opciones()
-	{
-		// 1 pregunta tiene varias respuestas
-		return $this->hasMany('App\Opciones');
+		return $this->hasMany('App\Opciones', 'pregunta_id', 'id');
 	}
 }

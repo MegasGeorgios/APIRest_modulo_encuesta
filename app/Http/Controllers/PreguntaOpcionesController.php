@@ -14,20 +14,15 @@ class PreguntaOpcionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
-    {
-      $pregunta=Pregunta::find($id);
-      if(!$pregunta){
-        return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
-      }
+     public function index($id)
+     {
+         $pregunta= Pregunta::find($id);
 
-        $preguntasOp = DB::table('preguntas')
-        ->join('opciones', 'preguntas.id', '=', 'opciones.pregunta_id')
-        ->select('preguntas.*', 'opciones.*')
-        ->where('pregunta_id',$id)->get();
+         $ops= $pregunta->op;
 
-       return response()->json(['datos'=>$preguntasOp],202);
-    }
+        return response()->json([ 'datos'=>$pregunta ],202);
+
+     }
 
 
     public function store(Request $request, $id_pregunta)
@@ -39,9 +34,6 @@ class PreguntaOpcionesController extends Controller
         return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
       }
 
-      //if (isset($request->frase)) {
-
-      //}
         $opcion = new opciones;
         $opciones = $request->opciones;
         for ($i=0; $i < $tam; $i++) {
@@ -55,9 +47,41 @@ class PreguntaOpcionesController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_pregunta)
     {
-        //
+        $pregunta = Pregunta::find($id_pregunta);
+        if(!$pregunta){
+          return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
+        }
+
+        if (isset($request->pregunta) &&
+           isset($request->aclaratoria) &&
+           isset($request->opciones)
+        ){
+
+          $tipo_respuesta= 'opciones';
+
+          $pregunta->update([
+            'pregunta' => $request->pregunta,
+            'aclaratoria' => $request->aclaratoria,
+            'tipo_respuesta' => $tipo_respuesta,
+          ]);
+
+          $tam=sizeof($request->opciones);
+
+          $opcion = new Opciones;
+          $opciones = $request->opciones;
+          $id_op= $request->id_op;
+
+          for ($i=0; $i < $tam; $i++) {
+            DB::table('opciones')->where('id', $id_op[$i])
+            ->update( ['opcion' => $opciones[$i], 'pregunta_id' => $id_pregunta] );
+          }
+
+           return response()->json(['mensaje'=>'Se han actualizado los datos correctamente', 'code'=>202],202);
+       }else {
+           return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);
+       }
     }
 
     /**
@@ -68,6 +92,14 @@ class PreguntaOpcionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $opcion = Opciones::find($id);
+
+      if(!$opcion){
+        return response()->json(['mensaje'=>'No se encontro la opcion', 'code'=>404],404);
+      }
+
+      $opcion->delete();
+      return response()->json(['mensaje'=>'Se ha eliminado la opcion correctamente', 'code'=>202],202);
+
     }
 }

@@ -53,10 +53,14 @@ Route::get('/pregunta/{id}', function ($id) {
     return view('editar-pregunta', ['idPregunta' => $id]);
 });
 
-//editar pregunta con Opciones
+//editar pregunta con Opciones (vista)
 Route::get('/pregunta/{id}/opciones', function ($id) {
     return view('editar-pregunta-opciones', ['idPregunta' => $id]);
 });
+Route::any('/api/pregunta/{id}/opciones', 'PreguntaOpcionesController@update');
+
+//eliminar opcion
+Route::any('eliminar-opcion/{id}', ['as' => 'eliminar-opcion', 'uses' => 'PreguntaOpcionesController@destroy']);
 
 //eliminar pregunta
 Route::any('eliminar-pregunta/{id}', ['as' => 'eliminar-pregunta', 'uses' => 'PreguntaController@destroy']);
