@@ -31,10 +31,10 @@ Route::get('/encuesta/{id}/preguntas', function ($id) {
 });
 
 //ruta para responder encuesta
-//Route::get('/rpd/{id}', 'EncuestaController@rpd_encuesta');
 Route::get('/encuesta/{id}', function ($id) {
     return view('responder-encuesta', ['idEncuesta' => $id]);
 });
+Route::post('/rpd_encuesta', 'PreguntaRespuestaController@store');
 
 //ruta para eliminar encuesta
 Route::any('eliminar-encuesta/{id}', ['as' => 'eliminar-encuesta', 'uses' => 'EncuestaController@destroy']);

@@ -15,51 +15,53 @@
                             </div>
                           </div>
 
+                          <form method="post" action="{{url('/rpd_encuesta')}}">
 
-                              <form >
-                              <div v-for="pregunta in encuesta.preguntas">
-
-                                <div v-if="pregunta.tipo_respuesta === 'opciones'">
-                                  <p class="h3">@{{ pregunta.pregunta }}</p>
-                                  <small class="text-muted">
-                                    @{{ pregunta.aclaratoria }}
-                                  </small>
-                                  <ul class="list-group">
-                                    <li class="list-group-item"><input type="checkbox" > Dapibus ac facilisis in</li>
-                                    <li class="list-group-item"><input type="checkbox" > Morbi leo risus</li>
-                                    <li class="list-group-item"><input type="checkbox" > Porta ac consectetur ac</li>
-                                    <li class="list-group-item"><input type="checkbox" > Vestibulum at eros</li>
-                                  </ul>
-                                </div>
-
-                                <div  v-if="pregunta.tipo_respuesta === 'valoracion'">
-                                  <p class="h3">@{{ pregunta.pregunta }}</p>
-                                  <small class="text-muted">
-                                    @{{ pregunta.aclaratoria }}
-                                  </small>
-                                  <ul class="list-group">
-                                    <li class="list-group-item"><font size="5px"> 1 </font>  <input type="checkbox" ></li>
-                                    <li class="list-group-item"><font size="5px"> 2 </font>  <input type="checkbox" ></li>
-                                    <li class="list-group-item"><font size="5px"> 3 </font>  <input type="checkbox" ></li>
-                                    <li class="list-group-item"><font size="5px"> 4 </font>  <input type="checkbox" ></li>
-                                    <li class="list-group-item"><font size="5px"> 5 </font>  <input type="checkbox" ></li>
-                                  </ul>
-                                </div>
-
-                                <div v-if="pregunta.tipo_respuesta === 'texto-libre'">
-                                  <p class="h3">@{{ pregunta.pregunta }}</p>
-                                  <small class="text-muted">
-                                    @{{ pregunta.aclaratoria }}
-                                  </small>
-                                  <div class="form-group">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                  </div>
-                                </div>
-
+                          <div v-for="pregunta in encuesta.preguntas">
+                            <div v-if="pregunta.tipo_respuesta === 'opciones'">
+                              <p class="h3">@{{ pregunta.pregunta }}</p>
+                              <small class="text-muted">
+                                @{{ pregunta.aclaratoria }}
+                              </small>
+                              <input type="hidden" name="id_preg_opciones[]" :value="pregunta.id">
+                              <div v-for="opcion in pregunta.op">
+                                <ul class="list-group" >
+                                  <li class="list-group-item"><input name="opciones[]" :value="opcion.opcion" type="checkbox" >@{{opcion.opcion}}</li>
+                                </ul>
                               </div>
+                            </div>
 
-                                  {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
-                          </form>
+                            <div  v-if="pregunta.tipo_respuesta === 'valoracion'">
+                              <p class="h3">@{{ pregunta.pregunta }}</p>
+                              <small class="text-muted">
+                                @{{ pregunta.aclaratoria }}
+                              </small>
+                              <ul class="list-group">
+                                <input type="hidden" name="id_preg_valoracion[]" :value="pregunta.id">
+                                <li class="list-group-item"><font size="5px"> 1 </font>  <input name="val[]" value="1" type="checkbox" ></li>
+                                <li class="list-group-item"><font size="5px"> 2 </font>  <input name="val[]" value="2" type="checkbox" ></li>
+                                <li class="list-group-item"><font size="5px"> 3 </font>  <input name="val[]" value="3" type="checkbox" ></li>
+                                <li class="list-group-item"><font size="5px"> 4 </font>  <input name="val[]" value="4" type="checkbox" ></li>
+                                <li class="list-group-item"><font size="5px"> 5 </font>  <input name="val[]" value="5" type="checkbox" ></li>
+                              </ul>
+                            </div>
+
+                            <div v-if="pregunta.tipo_respuesta === 'texto-libre'">
+                              <p class="h3">@{{ pregunta.pregunta }}</p>
+                              <small class="text-muted">
+                                @{{ pregunta.aclaratoria }}
+                              </small>
+                              <div class="form-group">
+                                <input type="hidden" name="id_preg_texto_libre[]" :value="pregunta.id">
+                                <textarea name="texto_libre[]" class="form-control"  rows="3"></textarea>
+                              </div>
+                            </div>
+
+                          </div>
+
+                              {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -78,9 +80,9 @@
   },
 	created: function() {
     var idEncuesta = JSON.parse(<?php echo json_encode($idEncuesta); ?>);
-    axios.get(`/api/encuesta/${idEncuesta}/preguntas`)
+    axios.get(`/api/rpd_encuesta/${idEncuesta}`)
     .then(response => {
-      this.encuesta = response.data.datos;
+      this.encuesta = response.data.datos[0];
     })
     .catch(e => {
       this.errors.push(e);

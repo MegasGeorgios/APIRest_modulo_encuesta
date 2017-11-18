@@ -15,7 +15,7 @@ class Respuesta extends Model
   public function pregunta()
   {
     // 1 respuesta pertenece a una pregunta
-    return $this->belongsTo('App\Pregunta');
+    return $this->belongsTo('App\Pregunta' , 'pregunta_id');
   }
 
 }

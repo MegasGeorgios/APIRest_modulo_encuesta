@@ -23,4 +23,10 @@ class Pregunta extends Model
 		// 1 pregunta tiene varias respuestas
 		return $this->hasMany('App\Opciones', 'pregunta_id', 'id');
 	}
+
+  public function respuestas()
+	{
+		// 1 pregunta tiene varias respuestas
+		return $this->hasMany('App\Respuesta', 'pregunta_id', 'id');
+	}
 }
