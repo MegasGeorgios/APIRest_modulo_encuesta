@@ -35,7 +35,7 @@
                         {!! Form::date('fecha_fin', null,  ['class' => 'form-control', 'required' , 'v-model'=> 'fecha_fin']) !!}
                       </div>
 
-                      <button class="btn btn-primary pull-right"  @submit.prevent>Guardar</button>
+                      <button class="btn btn-primary pull-right"  v-on:click="add()">Guardar</button>
 
                   </form>
                 </div>
@@ -49,13 +49,11 @@
 new Vue({
         el: '#vue',
     data: {
-      return {
         titulo: '',
         descripcion: '',
         ambito: '',
         fecha_inicio: '',
         fecha_fin: '',
-      }
     },
 
     methods: {
@@ -67,7 +65,10 @@ new Vue({
                 ambito: this.ambito,
                 fecha_inicio: this.fecha_inicio,
                 fecha_fin: this.fecha_fin
+            }).then( function() {
+                window.location.replace("/encuestas");
             });
+            
         }
     }
 });
