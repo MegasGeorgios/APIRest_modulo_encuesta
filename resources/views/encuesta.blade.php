@@ -10,7 +10,7 @@
                 <div class="panel-body">
 
                 <form id="vue">
-                      <div class="form-group">
+                      <div class="form-group" method="POST" >
                         {!! Form::label('titulo', 'Titulo') !!}
                         {!! Form::text('titulo', null, ['class' => 'form-control', 'required', 'v-model'=> 'titulo']) !!}
                       </div>
@@ -35,7 +35,7 @@
                         {!! Form::date('fecha_fin', null,  ['class' => 'form-control', 'required' , 'v-model'=> 'fecha_fin']) !!}
                       </div>
 
-                      <button class="btn btn-primary pull-right" @submit.prevent="add">Guardar</button>
+                      <button class="btn btn-primary pull-right"  @submit.prevent>Guardar</button>
 
                   </form>
                 </div>
@@ -49,11 +49,13 @@
 new Vue({
         el: '#vue',
     data: {
+      return {
         titulo: '',
         descripcion: '',
         ambito: '',
         fecha_inicio: '',
         fecha_fin: '',
+      }
     },
 
     methods: {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Encuesta;
 use App\Pregunta;
 use App\Respuesta;
 
@@ -14,15 +15,50 @@ class PreguntaRespuestaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index($id)
+     public function index($idPregunta)
      {
-         $pregunta= Pregunta::find($id);
-         $respuestas= $pregunta->respuestas;
-         if(!$pregunta){
-           return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
-         }
+         //$respuestas= Encuesta::where('id',$id_encuesta)->with('preguntas.respuestas')->get();
 
-          return response()->json(['datos'=>$respuestas],202);
+             /*$t_l= DB::table('encuestas')
+                ->join('preguntas', 'encuestas.id', '=', 'preguntas.encuesta_id')
+                ->join('respuestas', 'preguntas.id', '=', 'respuestas.pregunta_id')
+                ->where('encuestas.id',$id_encuesta)
+                ->where('preguntas.tipo_respuesta','texto-libre')
+                ->select('encuestas.titulo','encuestas.descripcion',
+                 'preguntas.pregunta', 'preguntas.tipo_respuesta', 'respuestas.texto_libre')
+                ->get();*/
+
+            /*  $val= DB::table('encuestas')
+                 ->join('preguntas', 'encuestas.id', '=', 'preguntas.encuesta_id')
+                 ->join('respuestas', 'preguntas.id', '=', 'respuestas.pregunta_id')
+                 ->where('encuestas.id',$id_encuesta)
+                 ->where('preguntas.tipo_respuesta','valoracion')
+                 ->select('encuestas.titulo','encuestas.descripcion',
+                  'preguntas.pregunta', 'preguntas.tipo_respuesta', 'respuestas.valoracion')
+                 ->get();*/
+                 $t_l = DB::table('respuestas')
+                      ->select('texto_libre')
+                      ->where('pregunta_id', '=', $idPregunta)
+                      ->get();
+
+                 $opciones = DB::table('respuestas')
+                      ->select(DB::raw('count(opciones) as votos, opciones'))
+                      ->where('pregunta_id', '=', $idPregunta)
+                      ->groupBy('opciones')
+                      ->get();
+
+                 $valoracion = DB::table('respuestas')
+                      ->select(DB::raw('count(valoracion) as votos, valoracion'))
+                      ->where('pregunta_id', '=', $idPregunta)
+                      ->groupBy('valoracion')
+                      ->get();
+
+
+        return response()->json([
+          'texto_libre'=>$t_l,
+          'val'=>$valoracion,
+          'op'=>$opciones],
+          202);
 
      }
 

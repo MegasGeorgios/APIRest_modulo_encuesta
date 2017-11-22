@@ -53,7 +53,7 @@
                               </small>
                               <div class="form-group">
                                 <input type="hidden" name="id_preg_texto_libre[]" :value="pregunta.id">
-                                <textarea name="texto_libre[]" class="form-control"  rows="3"></textarea>
+                                <textarea name="texto_libre[]" class="form-control"  rows="3" required></textarea>
                               </div>
                             </div>
 

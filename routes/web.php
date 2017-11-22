@@ -60,3 +60,18 @@ Route::any('eliminar-opcion/{id}', ['as' => 'eliminar-opcion', 'uses' => 'Pregun
 
 //eliminar pregunta
 Route::any('eliminar-pregunta/{id}', ['as' => 'eliminar-pregunta', 'uses' => 'PreguntaController@destroy']);
+
+//resultados
+Route::get('/resultados/encuesta/{id}', function ($id) {
+    return view('resultados', ['idEncuesta' => $id]);
+});
+
+Route::get('/pregunta/{id}/respuestas_tl', function ($id) {
+    return view('respuesta_tl', ['idPregunta' => $id]);
+});
+Route::get('/pregunta/{id}/respuestas_val', function ($id) {
+    return view('respuesta_val', ['idPregunta' => $id]);
+});
+Route::get('/pregunta/{id}/respuestas_op', function ($id) {
+    return view('respuesta_op', ['idPregunta' => $id]);
+});

@@ -23,10 +23,10 @@
                           <td>@{{ encuesta.ambito }}</td>
                           <td>
 
-                            <a :href="'encuesta/'+encuesta.id"><i class="fa fa-eye"></i></a>-
-                            <a href=""><i class="fa fa-bar-chart"></i></a>-
-                            <a :href="'encuesta/'+encuesta.id+'/preguntas'"><i class="fa fa-edit"></i></a>-
-                            <a :href="'eliminar-encuesta/'+encuesta.id"><i class="fa fa-trash-o"></i></a>
+                            <a :href="'encuesta/'+encuesta.id"><i class="fa fa-eye" title="Llenar encuesta"></i></a>-
+                            <a :href="'resultados/encuesta/'+encuesta.id"><i class="fa fa-bar-chart" title="Ver resultados"></i></a>-
+                            <a :href="'encuesta/'+encuesta.id+'/preguntas'"><i class="fa fa-edit" title="Agregar preguntas, editar encuesta"></i></a>-
+                            <a  :v-on:click.prevent="borrarEncuesta(encuesta)"><i class="fa fa-trash-o" title="Eliminar encuesta"></i></a>
                           </td>
 
                         </tr>
@@ -54,8 +54,20 @@
     })
     .catch(e => {
       this.errors.push(e);
-    });
+    })
+  },
+
+  methods:{
+
+    borrarEncuesta: function(encuesta){
+      axios.delete(`/api/encuesta/`+encuesta.id)
+      .then(response => {
+        alert('eliminado');
+      });
+    }
+
+
   }
-})
+});
 </script>
 @endsection
