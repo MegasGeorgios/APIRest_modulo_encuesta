@@ -9,8 +9,8 @@
 
               <div class="panel-body"  id="vue">
 
-              <form method="post" action="/api/preguntas/{{$idPregunta}}">
-              {{ method_field('PUT') }}
+              <form>
+            
 
                       <div class="form-group">
                         {!! Form::label('pregunta', 'Pregunta') !!}
@@ -28,7 +28,7 @@
                       </div>
 
 
-            {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
+            {!! Form::button('Guardar', ['class' => 'btn btn-primary pull-right', 'v-on:click' => 'enviar()']) !!}
             </form>
                 </div>
             </div>
@@ -54,7 +54,16 @@ created: function() {
   .catch(e => {
     this.errors.push(e);
   });
-}
+},
+methods:{
+    enviar(){
+      axios.put(`/api/preguntas/${this.encuesta.id}`, this.encuesta)
+      .then(response => {
+        alert(JSON.stringify(response));
+        location.reload();
+      });
+    }
+  }
 })
 </script>
 @endsection
