@@ -61,9 +61,10 @@
     borrarEncuesta(encuesta){
       axios.delete(`/eliminar-encuesta/`+encuesta.id)
       .then(response => {
-        alert('eliminado');
+        //alert('Encuesta eliminada');
+        location.reload();
       });
-      location.reload();
+
     }
   }
 });

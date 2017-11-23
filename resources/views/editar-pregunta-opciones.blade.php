@@ -63,7 +63,7 @@
   el: '#vue',
   data: {
     title: 'Encuestas',
-    encuesta: {},
+    encuesta: [],
 		errors: []
   },
 	created: function() {

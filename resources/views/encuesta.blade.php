@@ -9,8 +9,8 @@
 
                 <div class="panel-body">
 
-                <form id="vue">
-                      <div class="form-group" method="POST" >
+                <form id="vue" >
+                      <div class="form-group"  method="POST">
                         {!! Form::label('titulo', 'Titulo') !!}
                         {!! Form::text('titulo', null, ['class' => 'form-control', 'required', 'v-model'=> 'titulo']) !!}
                       </div>
@@ -66,9 +66,9 @@ new Vue({
                 fecha_inicio: this.fecha_inicio,
                 fecha_fin: this.fecha_fin
             }).then( function() {
-                window.location.replace("/encuestas");
+                location.replace("/encuestas");
             });
-            
+
         }
     }
 });
