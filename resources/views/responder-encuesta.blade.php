@@ -15,7 +15,7 @@
                             </div>
                           </div>
 
-                         
+
 
                           <div v-for="(pregunta, index) in encuesta.preguntas">
                             <div v-if="pregunta.tipo_respuesta === 'opciones'">
@@ -23,17 +23,17 @@
                               <small class="text-muted">
                                 @{{ pregunta.aclaratoria }}
                               </small>
-                              <select v-model="respuestas[index].respuesta">
+                              <select class="form-control" v-model="respuestas[index].respuesta" required>
                                 <option v-for="opcion in pregunta.op">@{{ opcion.opcion }}</option>
                               </select>
                             </div>
-                         
+
                             <div  v-if="pregunta.tipo_respuesta === 'valoracion'">
                               <p class="h3">@{{ pregunta.pregunta }}</p>
                               <small class="text-muted">
                                 @{{ pregunta.aclaratoria }}
                               </small>
-                              <select v-model="respuestas[index].respuesta">
+                              <select class="form-control" v-model="respuestas[index].respuesta" required>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -51,11 +51,11 @@
                                 <textarea v-model="respuestas[index].respuesta" class="form-control"  rows="3" required></textarea>
                               </div>
                             </div>
-                           
+
                           </div>
 
                           <button class="btn btn-primary pull-right"  v-on:click="add()">Guardar</button>
-                        
+
 
                     </div>
                 </div>
@@ -81,7 +81,7 @@
       this.encuesta = response.data.datos[0];
       for (var index = 0; index < this.encuesta.preguntas.length; index++) {
         this.respuestas.push({
-          id: this.encuesta.preguntas[index].id, 
+          id: this.encuesta.preguntas[index].id,
           tipo_respuesta:  this.encuesta.preguntas[index].tipo_respuesta,
           respuesta: ''
         });
@@ -94,9 +94,10 @@
 
   methods: {
       add() {
-          
+
           axios.post('/rpd_encuesta', this.respuestas).then( function() {
-              location.replace("/");
+            alert(this.respuestas);
+              //location.replace("/");
           });
 
       }

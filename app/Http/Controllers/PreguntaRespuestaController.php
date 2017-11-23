@@ -17,25 +17,6 @@ class PreguntaRespuestaController extends Controller
      */
      public function index($idPregunta)
      {
-         //$respuestas= Encuesta::where('id',$id_encuesta)->with('preguntas.respuestas')->get();
-
-             /*$t_l= DB::table('encuestas')
-                ->join('preguntas', 'encuestas.id', '=', 'preguntas.encuesta_id')
-                ->join('respuestas', 'preguntas.id', '=', 'respuestas.pregunta_id')
-                ->where('encuestas.id',$id_encuesta)
-                ->where('preguntas.tipo_respuesta','texto-libre')
-                ->select('encuestas.titulo','encuestas.descripcion',
-                 'preguntas.pregunta', 'preguntas.tipo_respuesta', 'respuestas.texto_libre')
-                ->get();*/
-
-            /*  $val= DB::table('encuestas')
-                 ->join('preguntas', 'encuestas.id', '=', 'preguntas.encuesta_id')
-                 ->join('respuestas', 'preguntas.id', '=', 'respuestas.pregunta_id')
-                 ->where('encuestas.id',$id_encuesta)
-                 ->where('preguntas.tipo_respuesta','valoracion')
-                 ->select('encuestas.titulo','encuestas.descripcion',
-                  'preguntas.pregunta', 'preguntas.tipo_respuesta', 'respuestas.valoracion')
-                 ->get();*/
                  $t_l = DB::table('respuestas')
                       ->select('texto_libre')
                       ->where('pregunta_id', '=', $idPregunta)
@@ -63,8 +44,8 @@ class PreguntaRespuestaController extends Controller
      }
 
     public function store(Request $request)
-    {
-      if(isset($request->texto_libre))
+    { dd($request);
+      /*if(isset($request->texto_libre))
       {
         $tam_tl=sizeof($request->texto_libre);
         $id_tl=$request->id_preg_texto_libre;
@@ -107,7 +88,7 @@ class PreguntaRespuestaController extends Controller
 
 
       return response()->json(['mensaje'=>'Se ha almacenado la respuesta', 'code'=>202],202);
-
+*/
     }
 
 }

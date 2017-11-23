@@ -28,7 +28,7 @@
                       </div>
 
 
-                      <a type="button" class="btn btn-primary pull-left" href="/encuesta/{{$idEncuesta}}/preguntas">Ir a panel de encuesta</a> <button class="btn btn-primary pull-right"  v-on:click="add()">Agregar</button>
+                      <a type="button" class="btn btn-primary pull-left" href="/encuesta/{{$idEncuesta}}/preguntas">Ir al panel de la encuesta</a> <button class="btn btn-primary pull-right"  v-on:click="add()">Agregar</button>
                   </form>
                 </div>
             </div>

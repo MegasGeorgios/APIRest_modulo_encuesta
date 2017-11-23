@@ -12,27 +12,27 @@
                 <form method="post">
                     <div class="form-group">
                       {!! Form::label('titulo', 'Titulo') !!}
-                      {!! Form::text('titulo', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.titulo']) !!}
+                      {!! Form::text('titulo', null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.titulo']) !!}
                     </div>
 
                     <div class="form-group">
                       {!! Form::label('descripcion', 'Descripcion') !!}
-                      {{ Form::textarea('descripcion', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.descripcion']) }}
+                      {{ Form::textarea('descripcion', null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.descripcion']) }}
                     </div>
 
                     <div class="form-group">
                       {!! Form::label('ambito', 'Ambito') !!}
-                      {!! Form::select('ambito', ['user1' => 'tipo usuario 1', 'user2' => 'tipo usuario 2', 'user3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.ambito']) !!}
+                      {!! Form::select('ambito', ['user1' => 'tipo usuario 1', 'user2' => 'tipo usuario 2', 'user3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.ambito']) !!}
                     </div>
 
                     <div class="form-group">
                       {!! Form::label('fecha_inicio', 'Fecha Inicio') !!}
-                      {!! Form::date('fecha_inicio', null,  ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.fecha_inicio']) !!}
+                      {!! Form::date('fecha_inicio', null,  ['class' => 'form-control', 'required', 'v-model' => 'encuesta.fecha_inicio']) !!}
                     </div>
 
                     <div class="form-group">
                       {!! Form::label('fecha_fin', 'Fecha Fin') !!}
-                      {!! Form::date('fecha_fin', null,  ['class' => 'form-control', 'v-bind:value' => 'encuesta.fecha_fin']) !!}
+                      {!! Form::date('fecha_fin', null,  ['class' => 'form-control', 'v-model' => 'encuesta.fecha_fin']) !!}
                     </div>
 
                     {!! Form::button('Guardar', ['class' => 'btn btn-primary pull-right', 'v-on:click' => 'enviarEncuesta()']) !!}
@@ -56,11 +56,11 @@
                               <td>
                                   <div v-if="pregunta.tipo_respuesta === 'opciones'">
                                     <a :href="`/pregunta/${pregunta.id}/opciones`"><i class="fa fa-edit"></i></a>-
-                                    <a v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o"></i></a>
+                                    <a href="" v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o"></i></a>
                                   </div>
                                   <div v-else>
                                     <a :href="`/pregunta/${pregunta.id}`"><i class="fa fa-edit"></i></a>-
-                                    <a v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o"></i></a>
+                                    <a href="" v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o"></i></a>
                                   </div>
                               </td>
 
@@ -103,11 +103,11 @@
         location.reload();
       });
     },
-    
+
     enviarEncuesta(){
       axios.put(`/api/encuestas/${this.encuesta.id}`, this.encuesta)
       .then(response => {
-        alert(JSON.stringify(response));
+        //alert(JSON.stringify(response));
         location.reload();
       });
     }

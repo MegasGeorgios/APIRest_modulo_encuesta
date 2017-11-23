@@ -72,8 +72,7 @@ class EncuestaController extends Controller
 
    public function update(Request $request, $id)
  {
-  //$variable = $request -> all();
-  //$variable->titulo es el titulo de la encuesta y asi con todas las propiedades
+
    if (isset($request->titulo) &&
       isset($request->descripcion) &&
       isset($request->fecha_inicio) &&
@@ -81,19 +80,7 @@ class EncuestaController extends Controller
       isset($request->ambito)
    ){
 
-     $encuesta=Encuesta::find($id);
-     if (!$encuesta)
-     {
-       return response()->json(['mensaje'=>'No se encontraro la encuesta', 'code'=>404],404);
-     }
-     $encuesta->update([
-       'titulo' => $request->titulo,
-       'descripcion' => $request->descripcion,
-       'fecha_inicio' => $request->fecha_inicio,
-       'fecha_fin' => $request->fecha_fin,
-       'ambito' => $request->ambito,
-     ]);
-
+      $encuesta=Encuesta::find($id)->update($request->all());
       return response()->json(['mensaje'=>'Se han actualizado los datos correctamente', 'code'=>202],202);
   }else {
       return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);

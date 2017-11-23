@@ -10,24 +10,24 @@
               <div class="panel-body"  id="vue">
 
               <form>
-            
+
 
                       <div class="form-group">
                         {!! Form::label('pregunta', 'Pregunta') !!}
-                        {!! Form::text('pregunta', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.pregunta']) !!}
+                        {!! Form::text('pregunta', null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.pregunta']) !!}
                       </div>
 
                       <div class="form-group">
                         {!! Form::label('aclaratoria', 'Aclaratoria') !!}
-                        {{ Form::textarea('aclaratoria', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.aclaratoria']) }}
+                        {{ Form::textarea('aclaratoria', null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.aclaratoria']) }}
                       </div>
 
                       <div class="form-group">
                         {!! Form::label('tipo_respuesta', 'Tipo de respuesta') !!}
-                        {!! Form::select('tipo_respuesta', ['texto-libre' => 'Texto libre', 'valoracion' => 'Valoracion', 'opciones' => 'Opciones'], null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.tipo_respuesta']) !!}
+                        {!! Form::select('tipo_respuesta', ['texto-libre' => 'Texto libre', 'valoracion' => 'Valoracion', 'opciones' => 'Opciones'], null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.tipo_respuesta']) !!}
                       </div>
 
-
+                      <a type="button" class="btn btn-primary pull-left" :href="'/encuesta/'+encuesta.encuesta_id+'/preguntas'">Ir al panel de la encuesta</a>
             {!! Form::button('Guardar', ['class' => 'btn btn-primary pull-right', 'v-on:click' => 'enviar()']) !!}
             </form>
                 </div>
@@ -59,7 +59,7 @@ methods:{
     enviar(){
       axios.put(`/api/preguntas/${this.encuesta.id}`, this.encuesta)
       .then(response => {
-        alert(JSON.stringify(response));
+        //alert(JSON.stringify(response));
         location.reload();
       });
     }
