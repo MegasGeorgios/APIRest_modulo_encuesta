@@ -57,11 +57,11 @@
                               <td>
                                   <div v-if="pregunta.tipo_respuesta === 'opciones'">
                                     <a :href="`/pregunta/${pregunta.id}/opciones`"><i class="fa fa-edit"></i></a>-
-                                    <a :href="`/eliminar-pregunta/${pregunta.id}`"><i class="fa fa-trash-o"></i></a>
+                                    <a v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o"></i></a>
                                   </div>
                                   <div v-else>
                                     <a :href="`/pregunta/${pregunta.id}`"><i class="fa fa-edit"></i></a>-
-                                    <a :href="`/eliminar-pregunta/${pregunta.id}`"><i class="fa fa-trash-o"></i></a>
+                                    <a v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o"></i></a>
                                   </div>
                               </td>
 
@@ -95,6 +95,16 @@
     .catch(e => {
       this.errors.push(e);
     });
+  },
+  methods:{
+    borrarPregunta(pr){
+      axios.delete(`/eliminar-pregunta/`+pr.id)
+      .then(response => {
+        //alert('Encuesta eliminada');
+        location.reload();
+      });
+
+    }
   }
 })
 </script>
