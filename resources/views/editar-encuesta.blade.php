@@ -9,34 +9,33 @@
 
                 <div class="panel-body"  id="vue">
 
-                <form method="post" action="/api/encuestas/{{$idEncuesta}}">
-                {{ method_field('PUT') }}
-                      <div class="form-group">
-                        {!! Form::label('titulo', 'Titulo') !!}
-                        {!! Form::text('titulo', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.titulo']) !!}
-                      </div>
+                <form method="post">
+                    <div class="form-group">
+                      {!! Form::label('titulo', 'Titulo') !!}
+                      {!! Form::text('titulo', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.titulo']) !!}
+                    </div>
 
-                      <div class="form-group">
-                        {!! Form::label('descripcion', 'Descripcion') !!}
-                        {{ Form::textarea('descripcion', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.descripcion']) }}
-                      </div>
+                    <div class="form-group">
+                      {!! Form::label('descripcion', 'Descripcion') !!}
+                      {{ Form::textarea('descripcion', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.descripcion']) }}
+                    </div>
 
-                      <div class="form-group">
-                        {!! Form::label('ambito', 'Ambito') !!}
-                        {!! Form::select('ambito', ['user1' => 'tipo usuario 1', 'user2' => 'tipo usuario 2', 'user3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.ambito']) !!}
-                      </div>
+                    <div class="form-group">
+                      {!! Form::label('ambito', 'Ambito') !!}
+                      {!! Form::select('ambito', ['user1' => 'tipo usuario 1', 'user2' => 'tipo usuario 2', 'user3' => 'tipo usuario 3'], null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.ambito']) !!}
+                    </div>
 
-                      <div class="form-group">
-                        {!! Form::label('fecha_inicio', 'Fecha Inicio') !!}
-                        {!! Form::date('fecha_inicio', null,  ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.fecha_inicio']) !!}
-                      </div>
+                    <div class="form-group">
+                      {!! Form::label('fecha_inicio', 'Fecha Inicio') !!}
+                      {!! Form::date('fecha_inicio', null,  ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.fecha_inicio']) !!}
+                    </div>
 
-                      <div class="form-group">
-                        {!! Form::label('fecha_fin', 'Fecha Fin') !!}
-                        {!! Form::date('fecha_fin', null,  ['class' => 'form-control', 'v-bind:value' => 'encuesta.fecha_fin']) !!}
-                      </div>
+                    <div class="form-group">
+                      {!! Form::label('fecha_fin', 'Fecha Fin') !!}
+                      {!! Form::date('fecha_fin', null,  ['class' => 'form-control', 'v-bind:value' => 'encuesta.fecha_fin']) !!}
+                    </div>
 
-                      {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
+                    {!! Form::button('Guardar', ['class' => 'btn btn-primary pull-right', 'v-on:click' => 'enviarEncuesta()']) !!}
 
                 </form>
 
@@ -103,7 +102,14 @@
         //alert('Encuesta eliminada');
         location.reload();
       });
-
+    },
+    
+    enviarEncuesta(){
+      axios.put(`/api/encuestas/${this.encuesta.id}`, this.encuesta)
+      .then(response => {
+        alert(JSON.stringify(response));
+        location.reload();
+      });
     }
   }
 })

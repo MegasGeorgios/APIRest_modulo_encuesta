@@ -72,7 +72,8 @@ class EncuestaController extends Controller
 
    public function update(Request $request, $id)
  {
-
+  //$variable = $request -> all();
+  //$variable->titulo es el titulo de la encuesta y asi con todas las propiedades
    if (isset($request->titulo) &&
       isset($request->descripcion) &&
       isset($request->fecha_inicio) &&
