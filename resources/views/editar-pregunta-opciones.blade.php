@@ -10,7 +10,7 @@
               <div class="panel-body"  id="vue">
 
               <form>
-            
+
               <div class="form-group">
                 {!! Form::label('pregunta', 'Pregunta') !!}
                 {!! Form::text('pregunta', null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.pregunta']) !!}
@@ -23,7 +23,7 @@
 
               <div class="form-group" v-for="pregunta in encuesta.op">
                   <label for="opciones[]">Opcion</label>
-                  <input required type="text" class="form-control" v-model="pregunta.opcion">
+                  <input  type="text" name="opciones[]" class="form-control" v-model="pregunta.opcion" disabled>
                   <a v-on:click="borrarOpcion(pregunta)"><i class="fa fa-trash-o pull-right"></i></a>
               </div><br>
 
@@ -96,7 +96,7 @@
 
         axios.put(`/act-pregunta-opciones/${idPregunta}`, this.encuesta)
         .then(response => {
-            //location.reload();
+            location.reload();
         })
       },
       borrarOpcion(pr){

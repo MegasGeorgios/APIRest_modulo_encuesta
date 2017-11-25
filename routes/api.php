@@ -19,4 +19,4 @@ Route::resource('preguntas','PreguntaController', [ 'only'=>['show','update','de
 Route::resource('pregunta.opciones','PreguntaOpcionesController', [ 'only'=>['index', 'store','update','destroy'] ]);
 Route::get('/rpd_encuesta/{id}', 'EncuestaController@rpd_encuesta');
 Route::resource('pregunta.respuestas','PreguntaRespuestaController', ['only'=>['index','store'] ]);
-//Route::resource('respuestas','RespuestaController', [ 'only'=>['show'] ]);
+Route::resource('respuestas','RespuestaController', [ 'only'=>['store'] ]);
