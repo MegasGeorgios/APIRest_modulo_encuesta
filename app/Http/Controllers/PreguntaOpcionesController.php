@@ -55,7 +55,7 @@ class PreguntaOpcionesController extends Controller
         }
 
         if (isset($request->pregunta) &&
-           isset($request->aclaratoria)
+           isset($request->aclaratoria) 
         ){
 
           $tipo_respuesta= 'opciones';

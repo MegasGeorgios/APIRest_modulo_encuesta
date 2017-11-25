@@ -23,8 +23,8 @@
 
               <div class="form-group" v-for="pregunta in encuesta.op">
                   <label for="opciones[]">Opcion</label>
-                  <input  type="text" name="opciones[]" class="form-control" v-model="pregunta.opcion" disabled>
-                  <a v-on:click="borrarOpcion(pregunta)"><i class="fa fa-trash-o pull-right"></i></a>
+                  <input  type="text" name="opciones[]" class="form-control" v-model="pregunta.opcion" title="Para modificar, elimina y crea una nueva!" disabled>
+                  <a href="" v-on:click="borrarOpcion(pregunta)"><i class="fa fa-trash-o pull-right" title="Eliminar opción"></i></a>
               </div><br>
 
 
@@ -77,8 +77,8 @@
   methods: {
       addOpcion() {
         var idPregunta = JSON.parse(<?php echo json_encode($idPregunta); ?>);
-        console.log(idPregunta);
-        console.log(this.opcion);
+        //console.log(idPregunta);
+        //console.log(this.opcion);
         axios.post(`/api/pregunta/${idPregunta}/opciones`, {opciones: this.opcion})
         .then(response => {
             location.reload();
@@ -94,6 +94,7 @@
             this.encuesta.id_op.push(opcion.id)
         }
 
+        //alert(JSON.stringify(this.encuesta));
         axios.put(`/act-pregunta-opciones/${idPregunta}`, this.encuesta)
         .then(response => {
             location.reload();

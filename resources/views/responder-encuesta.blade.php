@@ -81,7 +81,7 @@
       this.encuesta = response.data.datos[0];
       for (var index = 0; index < this.encuesta.preguntas.length; index++) {
         this.respuestas.push({
-          id: this.encuesta.preguntas[index].id,
+          pregunta_id: this.encuesta.preguntas[index].id,
           tipo_respuesta:  this.encuesta.preguntas[index].tipo_respuesta,
           respuesta: ''
         });
@@ -95,8 +95,8 @@
   methods: {
       add() {
         //alert(JSON.stringify(this.respuestas));
-          axios.post('/api/respuestas',this.respuestas).then( function() {
-          //console.log('se ejecuto');
+          axios.post('/api/respuestas',{rpd: this.respuestas}).then( function() {
+          //alert(response);
               //location.replace("/");
           });
 

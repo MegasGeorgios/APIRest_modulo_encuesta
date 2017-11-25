@@ -55,12 +55,12 @@
                               <td>@{{ pregunta.tipo_respuesta }}</td>
                               <td>
                                   <div v-if="pregunta.tipo_respuesta === 'opciones'">
-                                    <a :href="`/pregunta/${pregunta.id}/opciones`"><i class="fa fa-edit"></i></a>-
-                                    <a href="" v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o"></i></a>
+                                    <a :href="`/pregunta/${pregunta.id}/opciones`"><i class="fa fa-edit" title="Agregar opciones, editar pregunta"></i></a>-
+                                    <a href="" v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o" title="Eliminar pregunta"></i></a>
                                   </div>
                                   <div v-else>
-                                    <a :href="`/pregunta/${pregunta.id}`"><i class="fa fa-edit"></i></a>-
-                                    <a href="" v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o"></i></a>
+                                    <a :href="`/pregunta/${pregunta.id}`"><i class="fa fa-edit" title="Editar pregunta"></i></a>-
+                                    <a href="" v-on:click="borrarPregunta(pregunta)"><i class="fa fa-trash-o" title="Eliminar pregunta"></i></a>
                                   </div>
                               </td>
 
