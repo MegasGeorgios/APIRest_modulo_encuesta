@@ -9,44 +9,41 @@
 
               <div class="panel-body"  id="vue">
 
-              <form method="POST" action="/act-pregunta-opciones/{{$idPregunta}}">
-              {!! method_field('PUT') !!}
-
+              <form>
+            
               <div class="form-group">
                 {!! Form::label('pregunta', 'Pregunta') !!}
-                {!! Form::text('pregunta', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.pregunta']) !!}
+                {!! Form::text('pregunta', null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.pregunta']) !!}
               </div>
 
               <div class="form-group">
                 {!! Form::label('aclaratoria', 'Aclaratoria') !!}
-                {{ Form::textarea('aclaratoria', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'encuesta.aclaratoria']) }}
+                {{ Form::textarea('aclaratoria', null, ['class' => 'form-control', 'required', 'v-model' => 'encuesta.aclaratoria']) }}
               </div>
 
               <div class="form-group" v-for="pregunta in encuesta.op">
-                  {!! Form::label('opciones[]', 'Opcion') !!}
-                  <input type="hidden" name="id_op[]" :value="pregunta.id">
-                  {!! Form::text('opciones[]', null, ['class' => 'form-control', 'required', 'v-bind:value' => 'pregunta.opcion']) !!}
-                  <a :href="`/eliminar-opcion/${pregunta.id}`"><i class="fa fa-trash-o pull-right"></i></a>
+                  <label for="opciones[]">Opcion</label>
+                  <input required type="text" class="form-control" v-model="pregunta.opcion">
+                  <a v-on:click="borrarOpcion(pregunta)"><i class="fa fa-trash-o pull-right"></i></a>
               </div><br>
 
 
-              {!! Form::submit('Guardar', ['class' => 'btn btn-primary pull-right']) !!}
+              {!! Form::button('Guardar', ['class' => 'btn btn-primary pull-right', 'v-on:click' => 'putPregunta()']) !!}
 
             {!! Form::close() !!}
 
-            <form method="POST" action="/api/pregunta/{{$idPregunta}}/opciones">
+            <form>
               <br><br><br><br>
 
-              <label for="opcion"> Opciones</label>
+              <label for="opcion"> Agrergar nueva opcion</label>
               <div class="field_wrapper form-group">
                   <div>
-                    <input class="form-control" type="text" name="opciones[]" value=""/>
+                    <input class="form-control" type="text" v-model="opcion" />
                     <br>
                   </div>
               </div>
 
-              <br><br><a href="javascript:void(0);" class="add_button pull-left" title="Add field">Otra opcion</a>
-              {!! Form::submit('Agregar', ['class' => 'btn btn-primary pull-right']) !!}
+              {!! Form::button('Agregar', ['class' => 'btn btn-primary pull-right', 'v-on:click' => 'addOpcion()']) !!}
 
             {!! Form::close() !!}
 
@@ -64,7 +61,8 @@
   data: {
     title: 'Encuestas',
     encuesta: [],
-		errors: []
+	errors: [],
+    opcion: ''
   },
 	created: function() {
     var idPregunta = JSON.parse(<?php echo json_encode($idPregunta); ?>);
@@ -75,6 +73,39 @@
     .catch(e => {
       this.errors.push(e);
     });
+  },
+  methods: {
+      addOpcion() {
+        var idPregunta = JSON.parse(<?php echo json_encode($idPregunta); ?>);
+        console.log(idPregunta);
+        console.log(this.opcion);
+        axios.post(`/api/pregunta/${idPregunta}/opciones`, {opciones: this.opcion})
+        .then(response => {
+            location.reload();
+        })
+      },
+      putPregunta() {
+        var idPregunta = JSON.parse(<?php echo json_encode($idPregunta); ?>);
+        console.log(idPregunta);
+        console.log(this.encuesta);
+
+        this.encuesta.id_op = [];
+        for (opcion of this.encuesta.op) {
+            this.encuesta.id_op.push(opcion.id)
+        }
+
+        axios.put(`/act-pregunta-opciones/${idPregunta}`, this.encuesta)
+        .then(response => {
+            //location.reload();
+        })
+      },
+      borrarOpcion(pr){
+      axios.delete(`/eliminar-opcion/`+pr.id)
+      .then(response => {
+        //alert('Encuesta eliminada');
+        location.reload();
+      });
+    }
   }
 })
 </script>

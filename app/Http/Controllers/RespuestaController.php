@@ -34,24 +34,26 @@ class RespuestaController extends Controller
      */
      public function store(Request $request, $id_pregunta)
      {
-       if (!$request->get('texto_libre') || !$request->get('valoracion') || !$request->get('opciones'))
-       {
-           return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);
-       }
+    //    if (!$request->get('texto_libre') || !$request->get('valoracion') || !$request->get('opciones'))
+    //    {
+    //        return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);
+    //    }
 
-       $encuesta= Encuesta::find($id_encuesta);
-       if(!$encuesta){
-         return response()->json(['mensaje'=>'No se encontraro la encuesta', 'code'=>404],404);
-       }
+    //    $encuesta= Encuesta::find($id_encuesta);
+    //    if(!$encuesta){
+    //      return response()->json(['mensaje'=>'No se encontraro la encuesta', 'code'=>404],404);
+    //    }
 
-       Pregunta::create([
-         'texto_libre' => $request->get('texto_libre'),
-         'aclaratoria' => $request->get('valoracion'),
-         'tipo_respuesta' => $request->get('opciones'),
-         'id_pregunta' => $id_pregunta
-       ]);
-       return response()->json(['mensaje'=>'Se ha agregado satisfactoriamente la pregunta a la encuesta', 'code'=>202],202);
-
+    //    Pregunta::create([
+    //      'texto_libre' => $request->get('texto_libre'),
+    //      'aclaratoria' => $request->get('valoracion'),
+    //      'tipo_respuesta' => $request->get('opciones'),
+    //      'id_pregunta' => $id_pregunta
+    //    ]);
+        $data = $request->json()->all();
+        $output = new Symfony\Component\Console\Output\ConsoleOutput();
+        $output->writeln("<info>my message</info>");
+        $output->writeln($data);
      }
 
     /**

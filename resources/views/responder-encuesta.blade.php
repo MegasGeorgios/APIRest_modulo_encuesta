@@ -94,12 +94,9 @@
 
   methods: {
       add() {
-
-          axios.post('/rpd_encuesta', this.respuestas).then( function() {
-            alert(this.respuestas);
-              //location.replace("/");
-          });
-
+        axios.post('/rpd_encuesta',{respuestas: this.respuestas}).then( function(response) {
+          console.log('se ejecuto')
+        });
       }
   }
 })

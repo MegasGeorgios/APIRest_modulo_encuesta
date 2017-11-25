@@ -38,7 +38,7 @@ class PreguntaOpcionesController extends Controller
         $opciones = $request->opciones;
         for ($i=0; $i < $tam; $i++) {
           DB::table('opciones')->insert(
-            ['opcion' => $opciones[$i], 'pregunta_id' => $id_pregunta]
+            ['opcion' => $opciones, 'pregunta_id' => $id_pregunta]
           );
         }
 
