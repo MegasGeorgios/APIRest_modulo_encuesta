@@ -31,7 +31,7 @@ class PreguntaOpcionesController extends Controller
       //dd($tam);
       $pregunta= Pregunta::find($id_pregunta);
       if(!$pregunta){
-        return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
+        return response()->json(['mensaje'=>'No se encontro la pregunta', 'status'=>'error'],404);
       }
 
         $opcion = new opciones;
@@ -43,7 +43,7 @@ class PreguntaOpcionesController extends Controller
         }
 
 
-      return response()->json(['mensaje'=>'Se han almacenado satisfactoriamente', 'code'=>202],202);
+      return response()->json(['mensaje'=>'Se han almacenado satisfactoriamente', 'status'=>'ok'],202);
 
     }
 
@@ -51,11 +51,11 @@ class PreguntaOpcionesController extends Controller
     {
         $pregunta = Pregunta::find($id_pregunta);
         if(!$pregunta){
-          return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
+          return response()->json(['mensaje'=>'No se encontro la pregunta', 'status'=>'error'],404);
         }
 
         if (isset($request->pregunta) &&
-           isset($request->aclaratoria) 
+           isset($request->aclaratoria)
         ){
 
           $tipo_respuesta= 'opciones';
@@ -77,9 +77,9 @@ class PreguntaOpcionesController extends Controller
             ->update( ['opcion' => $opciones[$i], 'pregunta_id' => $id_pregunta] );
           }*/
 
-           return response()->json(['mensaje'=>'Se han actualizado los datos correctamente', 'code'=>202],202);
+           return response()->json(['mensaje'=>'Se han actualizado los datos correctamente', 'status'=>'ok'],202);
        }else {
-           return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);
+           return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'status'=>'error'],422);
        }
     }
 
@@ -94,11 +94,11 @@ class PreguntaOpcionesController extends Controller
       $opcion = Opciones::find($id);
 
       if(!$opcion){
-        return response()->json(['mensaje'=>'No se encontro la opcion', 'code'=>404],404);
+        return response()->json(['mensaje'=>'No se encontro la opcion', 'status'=>'error'],404);
       }
 
       $opcion->delete();
-      return response()->json(['mensaje'=>'Se ha eliminado la opcion correctamente', 'code'=>202],202);
+      return response()->json(['mensaje'=>'Se ha eliminado la opcion correctamente', 'status'=>'ok'],202);
 
     }
 }

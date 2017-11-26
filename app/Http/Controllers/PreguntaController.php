@@ -12,7 +12,7 @@ class PreguntaController extends Controller
      {
          $pregunta= Pregunta::find($id);
          if(!$pregunta){
-           return response()->json(['mensaje'=>'No se encontraro la pregunta', 'code'=>404],404);
+           return response()->json(['mensaje'=>'No se encontraro la pregunta', 'status'=>'error'],404);
          }else {
            return response()->json(['datos'=>$pregunta],202);
          }
@@ -23,7 +23,7 @@ class PreguntaController extends Controller
 
          $pregunta = Pregunta::find($id_pregunta);
          if(!$pregunta){
-           return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
+           return response()->json(['mensaje'=>'No se encontro la pregunta', 'status'=>'error'],404);
          }
 
          if (isset($request->pregunta) &&
@@ -37,9 +37,9 @@ class PreguntaController extends Controller
              'tipo_respuesta' => $request->tipo_respuesta,
            ]);
 
-            return response()->json(['mensaje'=>'Se han actualizado los datos correctamente', 'code'=>202],202);
+            return response()->json(['mensaje'=>'Se han actualizado los datos correctamente', 'status'=>'ok'],202);
         }else {
-            return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);
+            return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'status'=>'error'],422);
         }
      }
 
@@ -49,11 +49,11 @@ class PreguntaController extends Controller
          $pregunta = Pregunta::find($id);
 
          if(!$pregunta){
-           return response()->json(['mensaje'=>'No se encontro la pregunta', 'code'=>404],404);
+           return response()->json(['mensaje'=>'No se encontro la pregunta', 'status'=>'error'],404);
          }
 
          $pregunta->delete();
-         return response()->json(['mensaje'=>'Se ha eliminado la pregunta correctamente', 'code'=>202],202);
+         return response()->json(['mensaje'=>'Se ha eliminado la pregunta correctamente', 'status'=>'ok'],202);
 
      }
 

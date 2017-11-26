@@ -17,7 +17,7 @@ class EncuestaPreguntaController extends Controller
      {
          $encuesta= Encuesta::find($id);
          if(!$encuesta){
-           return response()->json(['mensaje'=>'No se encontro encuesta', 'code'=>404],404);
+           return response()->json(['mensaje'=>'No se encontro encuesta', 'status'=>'error'],404);
          }
 
          $preguntas= $encuesta->preguntas;
@@ -32,17 +32,17 @@ class EncuestaPreguntaController extends Controller
 
       if (!$request->get('pregunta') || !$request->get('aclaratoria') || !$request->get('tipo_respuesta'))
       {
-          return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'code'=>422],422);
+          return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'status'=>'error'],422);
       }
 
       $encuesta= Encuesta::find($id_encuesta);
       if(!$encuesta){
-        return response()->json(['mensaje'=>'No se encontro la encuesta', 'code'=>404],404);
+        return response()->json(['mensaje'=>'No se encontro la encuesta', 'status'=>'error'],404);
       }
 
       $pregunta= $encuesta->preguntas()->create($request->all());
 
-      return response()->json(['mensaje'=>'Pregunta agregada', 'code'=>202],202);
+      return response()->json(['mensaje'=>'Pregunta agregada', 'status'=>'ok'],202);
 
     }
 

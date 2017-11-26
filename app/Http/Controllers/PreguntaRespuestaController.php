@@ -44,8 +44,8 @@ class PreguntaRespuestaController extends Controller
      }
 
     public function store(Request $request)
-    { dd($request);
-      /*if(isset($request->texto_libre))
+    {
+      if(isset($request->texto_libre))
       {
         $tam_tl=sizeof($request->texto_libre);
         $id_tl=$request->id_preg_texto_libre;
@@ -88,7 +88,7 @@ class PreguntaRespuestaController extends Controller
 
 
       return response()->json(['mensaje'=>'Se ha almacenado la respuesta', 'code'=>202],202);
-*/
+
     }
 
 }

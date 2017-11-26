@@ -95,7 +95,7 @@
   methods: {
       add() {
         //alert(JSON.stringify(this.respuestas));
-          axios.post('/api/respuestas',{rpd: this.respuestas}).then( function() {
+          axios.post('/rpd_encuesta',{rpd: this.respuestas}).then( function() {
           //alert(response);
               //location.replace("/");
           });
