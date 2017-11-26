@@ -94,10 +94,30 @@
 
   methods: {
       add() {
-        //alert(JSON.stringify(this.respuestas));
-          axios.post('/rpd_encuesta',{rpd: this.respuestas}).then( function() {
-          //alert(response);
-              //location.replace("/");
+          let res = {
+            id_preg_texto_libre: [],
+            texto_libre: [],
+            id_preg_valoracio: [],
+            val: [],
+            id_preg_opciones: [],
+            opciones: []
+          };
+
+          for(respuesta of this.respuestas) {
+            if (respuesta.tipo_respuesta === 'texto-libre') {
+              res.id_preg_texto_libre.push(respuesta.pregunta_id);
+              res.texto_libre.push(respuesta.respuesta);
+            }
+            else if (respuesta.tipo_respuesta === 'opciones') {
+              res.id_preg_opciones.push(respuesta.pregunta_id);
+              res.opciones.push(respuesta.respuesta);
+            } else {
+              res.id_preg_valoracio.push(respuesta.pregunta_id);
+              res.val.push(respuesta.respuesta);
+            }
+          }
+          axios.post('/rpd_encuesta', res).then( function(response) {
+            location.replace("/");
           });
 
       }
