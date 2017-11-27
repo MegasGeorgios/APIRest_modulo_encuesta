@@ -60,7 +60,7 @@ class PreguntaRespuestaController extends Controller
       if(isset($request->val))
       {
             $val = $request->val;
-            $id_preg_val = $request->id_preg_valoracion;
+            $id_preg_val = $request->id_preg_valoracio;
             $tam_val=sizeof($val);
 
             if (isset($val))
@@ -87,7 +87,7 @@ class PreguntaRespuestaController extends Controller
       }
 
 
-      return response()->json(['mensaje'=>'Se ha almacenado la respuesta', 'code'=>202],202);
+      return response()->json(['mensaje'=>'Se ha almacenado la respuesta', 'status'=>'ok'],202);
 
     }
 
