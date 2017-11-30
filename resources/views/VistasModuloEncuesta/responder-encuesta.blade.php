@@ -26,7 +26,7 @@
                               <div class="card" >
                                 <ul class="list-group list-group-flush" >
                                   <li class="list-group-item" v-for="opcion in pregunta.op">
-                                    <input v-model="respuestas[index].respuesta"  name="respuestas[index].respuesta" type="radio">
+                                    <input v-model="respuestas[index].respuesta"  :value="opcion.opcion " type="radio">
                                     <font size="4px">@{{ opcion.opcion }}</font>
                                   </li>
                                 </ul>
@@ -38,25 +38,14 @@
                               <small class="text-muted">
                                 @{{ pregunta.aclaratoria }}
                               </small>
-                              <!--<select class="form-control" v-model="respuestas[index].respuesta" required>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                              </select>-->
                               <div class="card" >
                                 <ul class="list-group list-group-flush" >
-                                  <li class="list-group-item" >
-                                    <input v-model="respuestas[index].respuesta"  name="respuestas[index].respuesta" type="radio">
-                                    <font size="4px">@{{ pregunta.valoracion_min }}</font>
-                                  </li>
-                                  <li class="list-group-item" >
-                                    <input v-model="respuestas[index].respuesta"  name="respuestas[index].respuesta" type="radio">
-                                    <font size="4px">@{{ pregunta.valoracion_max }}</font>
+                                  <li class="list-group-item"  v-for="value in range(pregunta.valoracion_min, pregunta.valoracion_max)" >
+                                    <input v-model="respuestas[index].respuesta" :value="value" type="radio">
+                                    <font size="4px">@{{ value}}</font>
                                   </li>
                                 </ul>
-                              </div>
+                              </div> 
                             </div>
 
                             <div v-if="pregunta.tipo_respuesta === 'texto-libre'">
@@ -133,10 +122,14 @@
               res.val.push(respuesta.respuesta);
             }
           }
+         
           axios.post('/rpd_encuesta', res).then( function(response) {
-            location.replace("/");
+             location.replace("/");
           });
 
+      },
+      range(start, end) {
+          return Array(end - start + 1).fill().map((_, idx) => start + idx)
       }
   }
 })

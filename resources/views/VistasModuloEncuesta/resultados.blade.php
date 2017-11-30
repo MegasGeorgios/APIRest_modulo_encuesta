@@ -73,7 +73,8 @@
   data: {
     title: 'Encuestas',
     encuesta: {},
-		errors: []
+		errors: [],
+    num: 0
   },
 	created: function() {
     var idEncuesta = JSON.parse(<?php echo json_encode($idEncuesta); ?>);
