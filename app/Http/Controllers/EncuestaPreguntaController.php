@@ -13,6 +13,16 @@ class EncuestaPreguntaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function resultados($idEncuesta)
+     {
+         $encuesta= Encuesta::find($idEncuesta);
+         if(!$encuesta){
+           return response()->json(['mensaje'=>'No se encontro encuesta', 'status'=>'error'],404);
+         }
+
+        return response()->json([ 'datos'=>$encuesta ],202);
+
+     }
      public function index($id)
      {
          $encuesta= Encuesta::find($id);
@@ -40,7 +50,17 @@ class EncuestaPreguntaController extends Controller
         return response()->json(['mensaje'=>'No se encontro la encuesta', 'status'=>'error'],404);
       }
 
-      $pregunta= $encuesta->preguntas()->create($request->all());
+      if (!$request->get('valoracion_min') && !$request->get('valoracion_max') )
+      {
+        $pregunta= $encuesta->preguntas()->create([
+          'pregunta' => $request->pregunta,
+          'aclaratoria' => $request->aclaratoria,
+          'tipo_respuesta' => $request->tipo_respuesta,
+        ]);
+      }else {
+        $pregunta= $encuesta->preguntas()->create($request->all());
+      }
+
 
       return response()->json(['mensaje'=>'Pregunta agregada', 'status'=>'ok'],202);
 

@@ -66,7 +66,7 @@ new Vue({
                 fecha_inicio: this.fecha_inicio,
                 fecha_fin: this.fecha_fin
             }).then( function() {
-                location.replace("/encuestas");
+                window.location.replace("/");
             });
 
         }

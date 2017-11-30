@@ -9,7 +9,7 @@ class Pregunta extends Model
   protected $table = 'preguntas';
 
   protected $fillable = [
-      'pregunta', 'aclaratoria', 'tipo_respuesta'
+      'pregunta', 'aclaratoria', 'tipo_respuesta', 'valoracion_min', 'valoracion_max'
   ];
 
   public function encuesta()

@@ -15,6 +15,24 @@ class PreguntaRespuestaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function respuestas_op_val($idEncuesta)
+     {
+       $encuesta= Encuesta::where('id',$idEncuesta)->with('preguntas.op')->get();
+
+       $rpd= new Respuesta;
+       $op_val = $rpd->op_val();
+       $opciones = $op_val[0];
+       $valoracion = $op_val[1];
+       $totalEncuestados= $rpd->num_encuestados($idEncuesta);
+
+        return response()->json([
+          'datos'=>$encuesta,
+          'val'=>$valoracion,
+          'op'=>$opciones,
+          'totalEncuestados'=>$totalEncuestados],
+          202);
+    }
+
      public function index($idPregunta)
      {
                  $t_l = DB::table('respuestas')
@@ -22,24 +40,7 @@ class PreguntaRespuestaController extends Controller
                       ->where('pregunta_id', '=', $idPregunta)
                       ->get();
 
-                 $opciones = DB::table('respuestas')
-                      ->select(DB::raw('count(opciones) as votos, opciones'))
-                      ->where('pregunta_id', '=', $idPregunta)
-                      ->groupBy('opciones')
-                      ->get();
-
-                 $valoracion = DB::table('respuestas')
-                      ->select(DB::raw('count(valoracion) as votos, valoracion'))
-                      ->where('pregunta_id', '=', $idPregunta)
-                      ->groupBy('valoracion')
-                      ->get();
-
-
-        return response()->json([
-          'texto_libre'=>$t_l,
-          'val'=>$valoracion,
-          'op'=>$opciones],
-          202);
+        return response()->json(['texto_libre'=>$t_l],202);
 
      }
 
@@ -87,7 +88,7 @@ class PreguntaRespuestaController extends Controller
       }
 
 
-      return response()->json(['mensaje'=>'Se ha almacenado la respuesta', 'status'=>'ok'],202);
+      return response()->json(['mensaje'=>'Se ha almacenado la respuesta', 'code'=>202],202);
 
     }
 

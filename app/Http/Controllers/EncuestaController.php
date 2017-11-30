@@ -59,7 +59,13 @@ class EncuestaController extends Controller
         if(!$encuesta){
           return response()->json(['mensaje'=>'No se encontraro la encuesta', 'status'=>'error'],404);
         }else {
-          return response()->json(['datos'=>$encuesta],202);
+
+          if ( strtotime(date("Y-m-d")) >= strtotime($encuesta->fecha_inicio) && strtotime(date("Y-m-d")) <= strtotime($encuesta->fecha_fin) ){
+            $status_encuesta="abierta";
+          }else {
+            $status_encuesta="cerrada";
+          }
+          return response()->json(['datos'=>$encuesta, 'estatus_encuesta'=>$status_encuesta],202);
         }
     }
 

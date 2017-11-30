@@ -68,6 +68,7 @@
 
                           </tbody>
                         </table>
+                        <a type="button" class="btn btn-primary pull-left" href="{{url('/')}}">Ir al panel principal</a>
                         <a :href="'/encuesta/'+encuesta.id+'/agregar-pregunta'" class="btn btn-primary pull-right">Agregar pregunta</a>
                 </div>
             </div>

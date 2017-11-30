@@ -43,6 +43,7 @@
                   </div>
               </div>
 
+              <a type="button" class="btn btn-primary pull-left" :href="'/encuesta/'+encuesta.encuesta_id+'/preguntas'">Ir al panel de la encuesta</a>
               {!! Form::button('Agregar', ['class' => 'btn btn-primary pull-right', 'v-on:click' => 'addOpcion()']) !!}
 
             {!! Form::close() !!}
@@ -111,26 +112,4 @@
 })
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        var maxField = 10; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div><input class=" form-control " type="text" name="opciones[]" value=""/><a href="javascript:void(0);" class="remove_button pull-right" title="Remove field"><i class="fa fa-trash-o"></i></a></div>'; //New input field html
-        var x = 1; //Initial field counter is 1
-        $(addButton).click(function(){ //Once add button is clicked
-            if(x < maxField){ //Check maximum number of input fields
-                x++; //Increment field counter
-                $(wrapper).append(fieldHTML); // Add field html
-            }
-        });
-        $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-            x--; //Decrement field counter
-        });
-    });
-</script>
 @endsection

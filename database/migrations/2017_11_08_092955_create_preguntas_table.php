@@ -20,7 +20,8 @@ class CreatePreguntasTable extends Migration
             $table->string('pregunta');
             $table->text('aclaratoria');
             $table->string('tipo_respuesta');
-            $table->string('opciones')->nullable();
+            $table->integer('valoracion_min')->nullable();
+            $table->integer('valoracion_max')->nullable();
             $table->timestamps();
 
             //id_encuesta clave foranea de la tabla encuestas,
