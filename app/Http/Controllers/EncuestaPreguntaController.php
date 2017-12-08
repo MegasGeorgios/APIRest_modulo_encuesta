@@ -40,7 +40,7 @@ class EncuestaPreguntaController extends Controller
     public function store(Request $request, $id_encuesta)
     {
 
-      if (!$request->get('pregunta') || !$request->get('aclaratoria') || !$request->get('tipo_respuesta'))
+      if (!$request->get('pregunta')  || !$request->get('tipo_respuesta'))
       {
           return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'status'=>'error'],422);
       }
@@ -52,9 +52,14 @@ class EncuestaPreguntaController extends Controller
 
       if (!$request->get('valoracion_min') && !$request->get('valoracion_max') )
       {
+        if (!empty($request->aclaratoria)) {
+            $aclaratoria=$request->aclaratoria;
+        }else {
+          $aclaratoria="-";
+        }
         $pregunta= $encuesta->preguntas()->create([
           'pregunta' => $request->pregunta,
-          'aclaratoria' => $request->aclaratoria,
+          'aclaratoria' => $aclaratoria,
           'tipo_respuesta' => $request->tipo_respuesta,
         ]);
       }else {
