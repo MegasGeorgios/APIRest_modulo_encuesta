@@ -45,7 +45,7 @@
                                     <font size="4px">@{{ value}}</font>
                                   </li>
                                 </ul>
-                              </div> 
+                              </div>
                             </div>
 
                             <div v-if="pregunta.tipo_respuesta === 'texto-libre'">
@@ -122,9 +122,9 @@
               res.val.push(respuesta.respuesta);
             }
           }
-         
+
           axios.post('/rpd_encuesta', res).then( function(response) {
-             location.replace("/");
+             location.replace("/encuestas");
           });
 
       },

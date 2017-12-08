@@ -65,17 +65,7 @@ class PreguntaOpcionesController extends Controller
             'aclaratoria' => $request->aclaratoria,
             'tipo_respuesta' => $tipo_respuesta,
           ]);
-          //$pregunta->op()->update($request->all());
-          /*$tam=sizeof($request->opciones);
-
-          $opcion = new Opciones;
-          $opciones = $request->opciones;
-          $id_op= $request->id_op;
-
-          for ($i=0; $i < $tam; $i++) {
-            DB::table('opciones')->where('id', $id_op[$i])
-            ->update( ['opcion' => $opciones[$i], 'pregunta_id' => $id_pregunta] );
-          }*/
+          
 
            return response()->json(['mensaje'=>'Se han actualizado los datos correctamente', 'status'=>'ok'],202);
        }else {

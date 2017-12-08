@@ -42,8 +42,9 @@ class EncuestaController extends Controller
             ){
               return response()->json(['mensaje'=>'Datos invalidos o incompletos', 'status'=>'error'],422);
             }
-        Encuesta::create($request->all());
-        return response()->json(['mensaje'=>'Se ha creado la encuesta satisfactoriamente', 'status'=>'ok'],202);
+        $encuesta=Encuesta::create($request->all());
+        $id=$encuesta->id;
+        return response()->json(['mensaje'=>'Se ha creado la encuesta satisfactoriamente','id'=>$id, 'status'=>'ok'],202);
 
     }
 

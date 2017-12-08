@@ -9,8 +9,8 @@
 
                 <div class="panel-body">
 
-                <form id="vue" >
-                      <div class="form-group"  method="POST">
+                <div id="vue">
+                      <div class="form-group" >
                         {!! Form::label('titulo', 'Titulo') !!}
                         {!! Form::text('titulo', null, ['class' => 'form-control', 'required', 'v-model'=> 'titulo']) !!}
                       </div>
@@ -37,7 +37,7 @@
 
                       <button class="btn btn-primary pull-right"  v-on:click="add()">Guardar</button>
 
-                  </form>
+                  </div>
                 </div>
             </div>
         </div>
@@ -58,15 +58,14 @@ new Vue({
 
     methods: {
         add() {
-            // make ajax request and pass the data. I'm not certain how to do it with axios but something along the lines of this
             axios.post('/api/encuestas', {
                 titulo: this.titulo,
                 descripcion: this.descripcion,
                 ambito: this.ambito,
                 fecha_inicio: this.fecha_inicio,
                 fecha_fin: this.fecha_fin
-            }).then( function() {
-                window.location.replace("/");
+            }).then(response => {
+                location.replace(`/edit-encuesta/`+response.data.id);
             });
 
         }

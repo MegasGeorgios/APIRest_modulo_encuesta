@@ -20,4 +20,4 @@ Route::resource('pregunta.opciones','PreguntaOpcionesController', [ 'only'=>['in
 Route::get('/rpd_encuesta/{id}', 'EncuestaController@rpd_encuesta');
 Route::get('/respuestas_op_val/{id}', 'PreguntaRespuestaController@respuestas_op_val');
 Route::resource('pregunta.respuestas','PreguntaRespuestaController', ['only'=>['index','store'] ]);
-Route::resource('respuestas','RespuestaController', [ 'only'=>['store'] ]);
+Route::post('/rpd_encuesta', 'PreguntaRespuestaController@store');

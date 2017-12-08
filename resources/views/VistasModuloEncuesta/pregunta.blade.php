@@ -11,8 +11,8 @@
 
                 <div class="panel-body">
 
-                  <form id="vue" >
-                        <div class="form-group" method="post">
+                  <div id="vue" >
+                        <div class="form-group">
                           {!! Form::label('pregunta', 'Pregunta') !!}
                           {!! Form::text('pregunta', null, ['class' => 'form-control', 'required', 'v-model'=> 'pregunta']) !!}
                         </div>
@@ -42,7 +42,7 @@
 
 
                       <a type="button" class="btn btn-primary pull-left" href="/encuesta/{{$idEncuesta}}/preguntas">Ir al panel de la encuesta</a> <button class="btn btn-primary pull-right"  v-on:click="add()">Agregar</button>
-                  </form>
+                  </div>
                 </div>
             </div>
         </div>
@@ -71,6 +71,7 @@ el: '#vue',
                 valoracion_min: this.valoracion_min,
                 valoracion_max: this.valoracion_max
             }).then(response => {
+                alert(response.data.mensaje);
                 window.location.reload();
             });
 

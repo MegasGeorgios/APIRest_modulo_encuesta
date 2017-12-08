@@ -62,7 +62,7 @@
       axios.delete(`/eliminar-encuesta/`+encuesta.id)
       .then(response => {
         //alert('Encuesta eliminada');
-        location.replace("/");
+        location.reload();
       });
 
     },

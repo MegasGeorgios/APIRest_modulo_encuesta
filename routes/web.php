@@ -29,7 +29,9 @@ Route::get('/encuesta', function () {
 Route::get('/encuesta/{id}/preguntas', function ($id) {
     return view('VistasModuloEncuesta.editar-encuesta', ['idEncuesta' => $id]);
 });
-
+Route::get('/edit-encuesta/{id}', function ($id) {
+    return view('VistasModuloEncuesta.editar-encuesta', ['idEncuesta' => $id]);
+});
 //ruta para responder encuesta
 Route::get('/encuesta/{id}', function ($id) {
     return view('VistasModuloEncuesta.responder-encuesta', ['idEncuesta' => $id]);

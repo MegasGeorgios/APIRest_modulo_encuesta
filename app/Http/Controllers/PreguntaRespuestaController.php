@@ -52,27 +52,29 @@ class PreguntaRespuestaController extends Controller
         $id_tl=$request->id_preg_texto_libre;
         $texto_libre = $request->texto_libre;
         for ($i=0; $i < $tam_tl; $i++) {
+          if(!empty($texto_libre[$i]))
+          {
           DB::table('respuestas')->insert(
             ['texto_libre' => $texto_libre[$i], 'pregunta_id' => $id_tl[$i]]
           );
+          }
         }
       }
 
       if(isset($request->val))
       {
-            $val = $request->val;
-            $id_preg_val = $request->id_preg_valoracio;
-            $tam_val=sizeof($val);
+        $val = $request->val;
+        $id_preg_val = $request->id_preg_valoracio;
+        $tam_val=sizeof($val);
 
-            if (isset($val))
+          for ($i=0; $i < $tam_val; $i++) {
+            if(!empty($val[$i]))
             {
-              for ($i=0; $i < $tam_val; $i++) {
-                DB::table('respuestas')->insert(
-                  ['valoracion' => $val[$i], 'pregunta_id' => $id_preg_val[$i]]
-                );
-              }
+            DB::table('respuestas')->insert(
+              ['valoracion' => $val[$i], 'pregunta_id' => $id_preg_val[$i]]
+            );
             }
-
+          }
       }
 
       if(isset($request->opciones))
@@ -81,9 +83,12 @@ class PreguntaRespuestaController extends Controller
         $id_op=$request->id_preg_opciones;
         $opciones = $request->opciones;
         for ($i=0; $i < $tam_op; $i++) {
+          if(!empty($opciones[$i]))
+          {
           DB::table('respuestas')->insert(
             ['opciones' => $opciones[$i], 'pregunta_id' => $id_op[$i]]
           );
+          }
         }
       }
 
