@@ -10,7 +10,6 @@
                           <th scope="col">Titulo</th>
                           <th scope="col">Fecha inicio</th>
                           <th scope="col">Fecha fin</th>
-                          <th scope="col">Ambito</th>
                           <th scope="col">Opcion</th>
                         </tr>
                       </thead>
@@ -20,9 +19,7 @@
                           <td>@{{ encuesta.titulo }}</td>
                           <td>@{{ encuesta.fecha_inicio }}</td>
                           <td>@{{ encuesta.fecha_fin }}</td>
-                          <td>@{{ encuesta.ambito }}</td>
                           <td>
-
                             <a  v-on:click="responderEncuesta(encuesta)"><i class="fa fa-eye" title="Llenar encuesta"></i></a>-
                             <a :href="'/resultados/encuesta/'+encuesta.id"><i class="fa fa-bar-chart" title="Ver resultados"></i></a>-
                             <a :href="'/encuesta/'+encuesta.id+'/preguntas'"><i class="fa fa-edit" title="Agregar preguntas, editar encuesta"></i></a>-
