@@ -14,7 +14,7 @@
     <title>{{ config('app.name', 'Encuestas') }}</title>
 
     <!-- Styles -->
-    {!! Html::style('css/app.css') !!}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
