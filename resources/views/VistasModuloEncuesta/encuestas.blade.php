@@ -106,7 +106,7 @@
     },
     responderEncuesta2(){
 
-          alert('Encuesta cerrada!')
+          alert('No posees los permisos para esta accion!')
           location.reload();
     },
 
