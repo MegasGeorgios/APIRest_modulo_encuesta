@@ -107,11 +107,9 @@
     responderEncuesta(enc){
       axios.get(`/api/encuestas/`+enc.id)
       .then(response => {
-        if (response.data.estatus_encuesta == "abierta") {
-          location.replace(`/encuesta/`+enc.id);
-        }else {
-          alert('Encuesta cerrada!')
-        }
+
+          alert('No posees los permisos para esta accion!')
+          location.reload();
 
       });
 

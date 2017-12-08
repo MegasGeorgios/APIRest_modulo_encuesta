@@ -31,7 +31,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="">
+                    <a class="navbar-brand" href="{{url('/encuestas')}}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
