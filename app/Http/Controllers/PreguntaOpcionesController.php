@@ -27,21 +27,16 @@ class PreguntaOpcionesController extends Controller
 
     public function store(Request $request, $id_pregunta)
     {
-      $tam=sizeof($request->opciones);
-      //dd($tam);
-      $pregunta= Pregunta::find($id_pregunta);
+    $pregunta= Pregunta::find($id_pregunta);
       if(!$pregunta){
         return response()->json(['mensaje'=>'No se encontro la pregunta', 'status'=>'error'],404);
       }
 
-        $opcion = new opciones;
         $opciones = $request->opciones;
-        for ($i=0; $i < $tam; $i++) {
+
           DB::table('opciones')->insert(
             ['opcion' => $opciones, 'pregunta_id' => $id_pregunta]
           );
-        }
-
 
       return response()->json(['mensaje'=>'Se han almacenado satisfactoriamente', 'status'=>'ok'],202);
 
@@ -65,7 +60,7 @@ class PreguntaOpcionesController extends Controller
             'aclaratoria' => $request->aclaratoria,
             'tipo_respuesta' => $tipo_respuesta,
           ]);
-          
+
 
            return response()->json(['mensaje'=>'Se han actualizado los datos correctamente', 'status'=>'ok'],202);
        }else {
