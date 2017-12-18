@@ -40,9 +40,22 @@
                               </small>
                               <div class="card" >
                                 <ul class="list-group list-group-flush" >
-                                  <li class="list-group-item"  v-for="value in range(pregunta.valoracion_min, pregunta.valoracion_max)" >
+                                  <li style="display:inline;" class="list-group-item"  v-for="value in range(pregunta.valoracion_min, pregunta.valoracion_max)" >
                                     <input v-model="respuestas[index].respuesta" :value="value" type="radio">
-                                    <font size="4px">@{{ value}}</font>
+
+                                      <font size="4px" v-if="pregunta.valoracion_min == value">
+                                        @{{ value}} <font size="1px">Etiqueta valoracion minima</font>
+                                      </font>
+
+                                      <font v-else>
+                                      <font size="4px" v-if="pregunta.valoracion_max == value">
+                                        @{{ value}} <font size="1px">Etiqueta valoracion maxima</font>
+                                      </font>
+
+                                      <font size="4px" v-else>
+                                        @{{ value}}
+                                      </font>
+                                      </font>
                                   </li>
                                 </ul>
                               </div>

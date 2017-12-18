@@ -11,11 +11,6 @@
 |
 */
 //ruta para listar encuestas
-Route::get('/', function () {
-    return view('VistasModuloEncuesta.encuestas');
-});
-
-//ruta para listar encuestas
 Route::get('/encuestas', function () {
     return view('VistasModuloEncuesta.encuestas');
 });
@@ -24,7 +19,10 @@ Route::get('/encuestas', function () {
 Route::get('/encuesta', function () {
     return view('VistasModuloEncuesta.encuesta');
 });
-
+//encuesta creada
+Route::get('/encuesta-creada/{id}', function ($id) {
+    return view('VistasModuloEncuesta.encuesta-creada', ['idEncuesta' => $id]);
+});
 //ruta para editar encuesta
 Route::get('/encuesta/{id}/preguntas', function ($id) {
     return view('VistasModuloEncuesta.editar-encuesta', ['idEncuesta' => $id]);

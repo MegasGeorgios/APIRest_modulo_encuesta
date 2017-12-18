@@ -19,7 +19,7 @@
 
                       <div class="form-group">
                         {!! Form::label('aclaratoria', 'Aclaratoria') !!}
-                        {{ Form::textarea('aclaratoria', null, ['class' => 'form-control', 'required', 'v-model'=> 'aclaratoria']) }}
+                        {{ Form::textarea('aclaratoria', null, ['class' => 'form-control', 'v-model'=> 'aclaratoria']) }}
                       </div>
 
                       <div class="form-group" >
@@ -32,17 +32,27 @@
                       </div>
 
                       <div id="div_valoracion" class="contenido row">
-                        <div class="col-md-6" >
-                          <input class="form-control " type="number" name="valoracion_min" v-model="valoracion_min" placeholder="valoracion minima">
+                        <div class="col-md-2" >
+                          <input class="form-control " type="number" name="valoracion_min" v-model="valoracion_min" placeholder="minimo">
                         </div>
-                        <div class="col-md-6" >
-                          <input class="form-control " type="number" name="valoracion_max" v-model="valoracion_max" placeholder="valoracion maxima">
+                        <div class="col-md-4" >
+                          <input class="form-control " type="text" name="etiqueta_min" v-model="etiqueta_min" placeholder="Etiqueta del valor minimo">
                         </div>
+                        <div class="col-md-2" >
+                          <input class="form-control " type="number" name="valoracion_max" v-model="valoracion_max" placeholder="maximo">
+                        </div>
+                        <div class="col-md-4" >
+                          <input class="form-control " type="text" name="etiqueta_max" v-model="etiqueta_max" placeholder="Etiqueta del valor maximo">
+                        </div>
+
                       </div><br>
 
+                      <div >
+                        <button class="btn btn-primary pull-left" v-on:click="nueva()">Guardar y añadir nueva</button>
+                        <button class="btn btn-primary pull-right"  v-on:click="add()">Guardar</button>
+                      </div>
 
-                      <a type="button" class="btn btn-primary pull-left" href="/encuesta/{{$idEncuesta}}/preguntas">Ir al panel de la encuesta</a> <button class="btn btn-primary pull-right"  v-on:click="add()">Agregar</button>
-                  </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,7 +72,7 @@ el: '#vue',
     },
 
     methods: {
-        add() {
+        nueva() {
             var idEncuesta = JSON.parse(<?php echo json_encode($idEncuesta); ?>);
             axios.post(`/api/encuesta/${idEncuesta}/preguntas`, {
                 pregunta: this.pregunta,
@@ -73,6 +83,20 @@ el: '#vue',
             }).then(response => {
                 alert(response.data.mensaje);
                 window.location.reload();
+            });
+
+        },
+
+        add() {
+            var idEncuesta = JSON.parse(<?php echo json_encode($idEncuesta); ?>);
+            axios.post(`/api/encuesta/${idEncuesta}/preguntas`, {
+                pregunta: this.pregunta,
+                aclaratoria: this.aclaratoria,
+                tipo_respuesta: this.tipo_respuesta,
+                valoracion_min: this.valoracion_min,
+                valoracion_max: this.valoracion_max
+            }).then(response => {
+                location.replace(`/edit-encuesta/${idEncuesta}`);
             });
 
         }

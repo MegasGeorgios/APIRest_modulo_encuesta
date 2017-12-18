@@ -24,12 +24,23 @@ class PreguntaRespuestaController extends Controller
        $opciones = $op_val[0];
        $valoracion = $op_val[1];
        $totalEncuestados= $rpd->num_encuestados($idEncuesta);
+       $i=0;
+       foreach ($opciones as $op) {
+
+         if (isset($op->opciones)) {
+           $grafTorta[$i] = [$op->opciones,$op->votos];
+           $i++;
+         }
+       }
+       //[["Jan", 4], ["Feb", 20], ["Mar", 10], ["Apr", 5], ["May", 3]];
 
         return response()->json([
           'datos'=>$encuesta,
           'val'=>$valoracion,
           'op'=>$opciones,
-          'totalEncuestados'=>$totalEncuestados],
+          'totalEncuestados'=>$totalEncuestados,
+          'grafTorta' => $grafTorta,
+        ],
           202);
     }
 

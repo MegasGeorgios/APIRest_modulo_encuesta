@@ -65,7 +65,7 @@ new Vue({
                 fecha_inicio: this.fecha_inicio,
                 fecha_fin: this.fecha_fin
             }).then(response => {
-                location.replace(`/edit-encuesta/`+response.data.id);
+                location.replace(`/encuesta-creada/`+response.data.id);
             });
 
         }
