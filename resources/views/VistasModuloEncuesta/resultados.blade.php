@@ -37,9 +37,8 @@
                               </li>
                             </ul>
                           </div>
-                          <div >
-                              <!--Cambiarlo por :data"chartDataPie"-->
-                              <pie-chart :data="[['Sun', 3], ['Mon', 4], ['Tue', 2]]"></pie-chart>
+                          <div>
+                              <pie-chart :data="chartDataPie[pregunta.id]" ></pie-chart>
                           </div>
                         </div><br>
 
@@ -55,8 +54,7 @@
                             </ul>
                           </div>
                           <div>
-                            <!--Cambiarlo por :data"chartDataBarra"-->
-                            <column-chart :data="[['Sun', 3], ['Mon', 4], ['Tue', 2]]"></column-chart>
+                            <column-chart :data="chartDataBarra[pregunta.id]" ></column-chart>
                           </div>
                         </div><br>
 
@@ -83,6 +81,7 @@
     title: 'Encuestas',
     encuesta: {},
     chartDataPie: [],
+    chartDataPieArreglo: [],
     chartDataBarra: [],
 		errors: [],
     num: 0
@@ -95,47 +94,39 @@
       this.op = response.data.op;
       this.val = response.data.val;
       this.num = response.data.totalEncuestados;
+      //this.chartDataPie = response.data.grafTorta;
 
       //grafica torta
+      var index = 0;
       for (var i = 0; i < this.encuesta.preguntas.length; i++) {
         for (var j = 0; j < this.op.length; j++) {
-          if (this.op.pregunta_id[j] == this.encuesta.preguntas.id[i]) {
-            if (this.op.opciones != 'null' || this.op.opciones != 'NULL') {
-              this.chartDataPie.push(
+
+          if (this.op[j].pregunta_id == this.encuesta.preguntas[i].id) {
+            if (this.encuesta.preguntas[i].tipo_respuesta == "opciones") {
+              this.chartDataPieArreglo[index].push(
                 [
-                  [
-                    this.op.opciones[j],
-                    this.op.votos[j]
-                  ]
+                    this.op[j].opciones,
+                    this.op[j].votos
                 ]);
+                index++;
               }
             }
-          }
+          }console.log(this.chartDataPieArreglo);
+          var id = this.encuesta.preguntas[i].id;
+          this.chartDataPie[id].push(
+            [
+                this.chartDataPieArreglo
+            ]);
+            index=0;
         }
 
-        //grafica barras
-        for (var x = 0; x < this.encuesta.preguntas.length; x++) {
-          for (var y = 0; y < this.val.length; y++) {
-            if (this.val.pregunta_id[y] == this.encuesta.preguntas.id[x]) {
-              if (this.val.valoracion != 'null' || this.val.valoracion != 'NULL') {
-                this.chartDataBarra.push(
-                  [
-                    [
-                      this.val.valoracion[y],
-                      this.op.votos[y]
-                    ]
-                  ]);
-              }
-            }
-          }
-        }
     })
     .catch(e => {
       this.errors.push(e);
     });
   }
+
 })
 
 </script>
-
 @endsection
