@@ -20,20 +20,28 @@ class Respuesta extends Model
     return $this->belongsTo('App\Pregunta' , 'pregunta_id');
   }
 
-  public function op_val()
+  public function op_val($idEncuesta)
   {
     $op = DB::table('respuestas')
+      ->join('preguntas', 'preguntas.id', '=', 'respuestas.pregunta_id')
+      ->join('encuestas', 'encuestas.id', '=', 'preguntas.encuesta_id')
          ->select(DB::raw('count(opciones) as votos, opciones, pregunta_id'))
+         ->where('respuestas.opciones','<>','NULL')
+         ->where('encuestas.id',$idEncuesta)
          ->groupBy('pregunta_id','opciones')
          ->get();
 
     $val = DB::table('respuestas')
+    ->join('preguntas', 'preguntas.id', '=', 'respuestas.pregunta_id')
+    ->join('encuestas', 'encuestas.id', '=', 'preguntas.encuesta_id')
          ->select(DB::raw('count(valoracion) as votos, valoracion, pregunta_id'))
+         ->where('respuestas.valoracion','<>','NULL')
+         ->where('encuestas.id',$idEncuesta)
          ->groupBy('pregunta_id','valoracion')
          ->get();
     return $op_val = array($op,$val);
   }
-  
+
   public function num_encuestados($idEncuesta)
   {
       $valr=DB::table('respuestas')
