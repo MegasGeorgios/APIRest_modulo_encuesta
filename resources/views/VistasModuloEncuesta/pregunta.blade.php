@@ -69,6 +69,8 @@ el: '#vue',
         tipo_respuesta: '',
         valoracion_min: '',
         valoracion_max: '',
+        etiqueta_min: '',
+        etiqueta_max: ''
     },
 
     methods: {
@@ -79,7 +81,9 @@ el: '#vue',
                 aclaratoria: this.aclaratoria,
                 tipo_respuesta: this.tipo_respuesta,
                 valoracion_min: this.valoracion_min,
-                valoracion_max: this.valoracion_max
+                valoracion_max: this.valoracion_max,
+                etiqueta_min: this.etiqueta_min,
+                etiqueta_max: this.etiqueta_max
             }).then(response => {
                 alert(response.data.mensaje);
                 window.location.reload();
@@ -94,7 +98,9 @@ el: '#vue',
                 aclaratoria: this.aclaratoria,
                 tipo_respuesta: this.tipo_respuesta,
                 valoracion_min: this.valoracion_min,
-                valoracion_max: this.valoracion_max
+                valoracion_max: this.valoracion_max,
+                etiqueta_min: this.etiqueta_min,
+                etiqueta_max: this.etiqueta_max
             }).then(response => {
                 location.replace(`/edit-encuesta/${idEncuesta}`);
             });

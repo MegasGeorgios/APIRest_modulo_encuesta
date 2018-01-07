@@ -34,11 +34,9 @@ class PreguntaOpcionesController extends Controller
       }
 
         $opciones = $request->opciones;
-        for ($i=0; $i < $tam; $i++) {
           DB::table('opciones')->insert(
             ['opcion' => $opciones, 'pregunta_id' => $id_pregunta]
           );
-        }
 
 
       return response()->json(['mensaje'=>'Se han almacenado satisfactoriamente', 'status'=>'ok'],202);

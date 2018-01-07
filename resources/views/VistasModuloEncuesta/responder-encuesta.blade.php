@@ -44,12 +44,12 @@
                                     <input v-model="respuestas[index].respuesta" :value="value" type="radio">
 
                                       <font size="4px" v-if="pregunta.valoracion_min == value">
-                                        @{{ value}} <font size="1px">Etiqueta valoracion minima</font>
+                                        @{{ value}} <font size="1px">@{{ pregunta.etiqueta_min}}</font>
                                       </font>
 
                                       <font v-else>
                                       <font size="4px" v-if="pregunta.valoracion_max == value">
-                                        @{{ value}} <font size="1px">Etiqueta valoracion maxima</font>
+                                        @{{ value}} <font size="1px">@{{ pregunta.etiqueta_max}}</font>
                                       </font>
 
                                       <font size="4px" v-else>
@@ -113,6 +113,7 @@
 
   methods: {
       add() {
+          var idEncuesta = JSON.parse(<?php echo json_encode($idEncuesta); ?>);
           let res = {
             id_preg_texto_libre: [],
             texto_libre: [],
@@ -136,7 +137,7 @@
             }
           }
 
-          axios.post('/rpd_encuesta', res).then( function(response) {
+          axios.post(`/api/rpd_encuesta/${idEncuesta}`, res).then( function(response) {
              location.replace("/encuestas");
           });
 

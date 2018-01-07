@@ -5,15 +5,12 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-              <pie-chart :data="[['Blueberry', 44], ['Strawberry', 23]]"></pie-chart>
-
               <div id="vue">
                 <div class="panel-heading" ><h3>Resultados de la encuesta: @{{encuesta.titulo}}</h3> </div>
+
                 <div class="panel-body"  >
-
-
                       <div>
-                        <hr><h4><strong>Personas encuestadas: @{{ num }} </strong></h4><hr>
+                        <hr><h4><strong>Personas encuestadas: @{{ encuesta.encuestados }} </strong></h4><hr>
                       </div>
 
 
@@ -46,6 +43,7 @@
                         <div v-if="pregunta.tipo_respuesta === 'valoracion'">
                           <div>
                             <h4><strong>@{{ pregunta.pregunta }} </strong></h4>
+                            <h6>Valoracion minima: @{{ pregunta.valoracion_min }} / Valoracion maxima: @{{ pregunta.valoracion_max }} </h6>
                             <ul  v-for="valoracion in val">
                               <li v-if="valoracion.pregunta_id == pregunta.id" class="list-group-item d-flex justify-content-between align-items-center">
                                 <strong>Valoracion: </strong> @{{ valoracion.valoracion }}
@@ -61,6 +59,7 @@
                       </div>
                 </div>
               </div>
+              <a href="/api/resultados_excel_encuesta/{{$idEncuesta}}" class="btn btn-primary pull-right">Exportar resultados en excel</a>
             </div>
         </div>
     </div>
@@ -81,10 +80,8 @@
     title: 'Encuestas',
     encuesta: {},
     chartDataPie: [],
-    chartDataPieArreglo: [],
     chartDataBarra: [],
-		errors: [],
-    num: 0
+		errors: []
   },
 	created: function() {
     var idEncuesta = JSON.parse(<?php echo json_encode($idEncuesta); ?>);
@@ -94,31 +91,9 @@
       this.op = response.data.op;
       this.val = response.data.val;
       this.num = response.data.totalEncuestados;
-      //this.chartDataPie = response.data.grafTorta;
+      this.chartDataBarra = response.data.grafBarra;
+      this.chartDataPie = response.data.grafTorta;
 
-      //grafica torta
-      var index = 0;
-      for (var i = 0; i < this.encuesta.preguntas.length; i++) {
-        for (var j = 0; j < this.op.length; j++) {
-
-          if (this.op[j].pregunta_id == this.encuesta.preguntas[i].id) {
-            if (this.encuesta.preguntas[i].tipo_respuesta == "opciones") {
-              this.chartDataPieArreglo[index].push(
-                [
-                    this.op[j].opciones,
-                    this.op[j].votos
-                ]);
-                index++;
-              }
-            }
-          }console.log(this.chartDataPieArreglo);
-          var id = this.encuesta.preguntas[i].id;
-          this.chartDataPie[id].push(
-            [
-                this.chartDataPieArreglo
-            ]);
-            index=0;
-        }
 
     })
     .catch(e => {

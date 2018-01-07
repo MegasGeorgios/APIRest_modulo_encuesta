@@ -22,6 +22,15 @@ class Respuesta extends Model
 
   public function op_val($idEncuesta)
   {
+    $t_l = DB::table('respuestas')
+      ->join('preguntas', 'preguntas.id', '=', 'respuestas.pregunta_id')
+      ->join('encuestas', 'encuestas.id', '=', 'preguntas.encuesta_id')
+         ->select( 'respuestas.texto_libre', 'respuestas.pregunta_id')
+         ->where('respuestas.texto_libre','<>','NULL')
+         ->where('encuestas.id',$idEncuesta)
+         ->groupBy('respuestas.pregunta_id','respuestas.texto_libre')
+         ->get();
+
     $op = DB::table('respuestas')
       ->join('preguntas', 'preguntas.id', '=', 'respuestas.pregunta_id')
       ->join('encuestas', 'encuestas.id', '=', 'preguntas.encuesta_id')
@@ -39,46 +48,7 @@ class Respuesta extends Model
          ->where('encuestas.id',$idEncuesta)
          ->groupBy('pregunta_id','valoracion')
          ->get();
-    return $op_val = array($op,$val);
+    return $op_val = array($op,$val,$t_l);
   }
 
-  public function num_encuestados($idEncuesta)
-  {
-      $valr=DB::table('respuestas')
-           ->select('respuestas.valoracion')
-           ->join('preguntas', 'preguntas.id', '=', 'respuestas.pregunta_id')
-           ->where('respuestas.valoracion','<>','NULL')
-           ->where('preguntas.encuesta_id',$idEncuesta)
-           ->get();
-     $opc=DB::table('respuestas')
-          ->select('respuestas.opciones')
-          ->join('preguntas', 'preguntas.id', '=', 'respuestas.pregunta_id')
-          ->where('respuestas.opciones','<>','NULL')
-          ->where('preguntas.encuesta_id',$idEncuesta)
-          ->get();
-     $tlb=DB::table('respuestas')
-         ->select('respuestas.texto_libre')
-         ->join('preguntas', 'preguntas.id', '=', 'respuestas.pregunta_id')
-         ->where('respuestas.texto_libre','<>','NULL')
-         ->where('preguntas.encuesta_id',$idEncuesta)
-         ->get();
-
-      $countVal=count($valr);
-      $countOpc=count($opc);
-      $countTlb=count($tlb);
-
-      if (($countVal >= $countOpc) && ($countVal >= $countTlb) ) {
-          $num=$countVal;
-      }else{
-        if (($countOpc >= $countVal) && ($countOpc >= $countTlb)) {
-          $num=$countOpc;
-        }else {
-          if (($countTlb >= $countVal) && ($countTlb >= $countOpc)) {
-          $num=$countTlb;
-          }
-        }
-      }
-
-      return $num;
-  }
 }

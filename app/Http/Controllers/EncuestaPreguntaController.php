@@ -50,22 +50,33 @@ class EncuestaPreguntaController extends Controller
         return response()->json(['mensaje'=>'No se encontro la encuesta', 'status'=>'error'],404);
       }
 
-      if (!$request->get('valoracion_min') && !$request->get('valoracion_max') )
+      if (!$request->input('aclaratoria'))
       {
-        if (!$request->get('aclaratoria'))
-        {
-          $aclaratoria=' ';
+        $aclaratoria=' ';
 
-        }else {
-          $aclaratoria=$request->aclaratoria;
-        }
+      }else {
+        $aclaratoria=$request->aclaratoria;
+      }
+
+      if (!$request->input('valoracion_min') && !$request->input('valoracion_max') )
+      {
         $pregunta= $encuesta->preguntas()->create([
           'pregunta' => $request->pregunta,
           'aclaratoria' => $aclaratoria,
           'tipo_respuesta' => $request->tipo_respuesta,
         ]);
       }else {
-        $pregunta= $encuesta->preguntas()->create($request->all());
+        $pregunta = new Pregunta;
+        $pregunta->pregunta = $request->pregunta;
+        $pregunta->aclaratoria = $aclaratoria;
+        $pregunta->tipo_respuesta = $request->tipo_respuesta;
+        $pregunta->valoracion_min = $request->valoracion_min;
+        $pregunta->valoracion_max = $request->valoracion_max;
+        $pregunta->etiqueta_min = $request->etiqueta_min;
+        $pregunta->etiqueta_max = $request->etiqueta_max;
+        $pregunta->encuesta_id = $id_encuesta;
+        $pregunta->save();
+
       }
 
 

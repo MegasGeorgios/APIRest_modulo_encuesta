@@ -19,5 +19,6 @@ Route::resource('preguntas','PreguntaController', [ 'only'=>['show','update','de
 Route::resource('pregunta.opciones','PreguntaOpcionesController', [ 'only'=>['index', 'store','update','destroy'] ]);
 Route::get('/rpd_encuesta/{id}', 'EncuestaController@rpd_encuesta');
 Route::get('/respuestas_op_val/{id}', 'PreguntaRespuestaController@respuestas_op_val');
+Route::get('/resultados_excel_encuesta/{id}', 'PreguntaRespuestaController@excel');
 Route::resource('pregunta.respuestas','PreguntaRespuestaController', ['only'=>['index','store'] ]);
-Route::post('/rpd_encuesta', 'PreguntaRespuestaController@store');
+Route::post('/rpd_encuesta/{id}', 'PreguntaRespuestaController@store');

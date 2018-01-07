@@ -20,6 +20,7 @@ class CreateEncuestasTable extends Migration
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->string('ambito')->nullable();
+            $table->integer('encuestados')->default(0);
             $table->timestamps();
         });
     }
